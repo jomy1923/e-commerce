@@ -1,0 +1,77 @@
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+     <!-- ::::::  Start  Main Container Section  ::::::  -->
+    <main id="main-container" class="main-container"m-tb-20>
+        <div class="container">
+            <div class="row">
+               <div class="col-12">
+                <!-- login area start -->
+                <div class="login-register-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                                <div class="login-register-wrapper">
+                                    <div class="login-register-tab-list nav">
+                                      
+                                            <h4 class="mt-5">REGISTER</h4>
+                                       
+                                        
+                                    </div>
+                                    <div class="tab-content">
+                                        <div id="lg1" class="tab-pane active">
+                                            <div class="login-form-container">
+                                                <div class="login-register-form">
+                                                    <form action="/register" method="post">
+                                                        <div class="form-box__single-group">
+                                                            <input type="text" id="form-username" name="uname" placeholder="Username" required>
+                                                        </div>
+                                                         <div class="form-box__single-group">
+                                                            <input type="email" id="email" name="email" placeholder="Enter email" required>
+                                                        </div>
+                                                        <div class="form-box__single-group">
+                                                            <input type="password" id="form-username-password" name="password" placeholder="Enter password" required>
+                                                        </div>
+                                                        <p id="error" style="display: none;" class="text-danger"> Username Already exists</p>
+                                                        <button class="btn btn--box btn--small btn--blue btn--uppercase btn--weight m-tb-20" id="btn" type="submit">REGISTER</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- login area end -->
+               </div>
+            </div>
+        </div>
+    </main> <!-- ::::::  End  Main Container Section  ::::::  -->
+<script>
+    $('#btn').click((event)=>{
+        event.preventDefault()
+        
+        let uname=$('#form-username').val()
+        let email=$('#email').val()
+        let password=$('#form-username-password').val()
+        $.ajax({
+            url:'/register',
+            method:'POST',
+            data:{uname,email,password},
+            success:(response)=>{
+                if(response.user==false){
+                    $('#error').show()
+                }else{
+                    $('#error').hide()
+                    alert('you are register sucessfully')
+                    window.location.href='/login'
+                }
+                
+            }
+        })
+
+    })
+</script>
+
