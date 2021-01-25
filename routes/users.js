@@ -22,6 +22,7 @@ router.get('/', async function(req, res) {
     else{
       let cartCount=await userController.getCartCount(req.session.name._id)
       productHelpers.getAllproducts().then((products)=>{
+        
         res.render('user/index',{products,cartCount,userName:ifSession,roles:role})
         })
     }
@@ -126,8 +127,15 @@ router.get("/logout", (req, res) => {
 router.get('/cart',varifyLogin,async(req,res)=>{
   let cartCount=await userController.getCartCount(req.session.name._id)
   let products=await userController.getCartProducts(req.session.name._id)
+  let totalValue=await userController.getTotalAmount(req.session.name._id)
+  userController.getCartProducts(req.session.name._id).then((products)=>{
+    res.render('user/cart',{products,cartCount,user:req.session.name,totalValue})
+  }).catch(()=>{
+    res.render('user/empty-cart',{user:req.session.name})
+  })
+
   
-  res.render('user/cart',{products,cartCount})
+  
 })
 router.get('/add-to-cart/:id',varifyLogin,(req,res)=>{
  
@@ -135,7 +143,25 @@ userController.addToCart(req.params.id,req.session.name._id).then(()=>{
   res.json({status:true})
 })
 })
+router.post('/change-product-quantity',(req,res)=>{
+  console.log(req.body,'haiii jomy');
+  userController.ChangeProductQuantity(req.body).then(async(response)=>{
+    response.total=await userController.getTotalAmount(req.body.user)
+    res.json(response)
+  })
+})
 
+router.post('/delete-product',(req,res)=>{
+  console.log(req.body,'haiii jomy');
+  userController.DeleteProduct(req.body).then((response)=>{
+    res.json(response)
+  })
+})
+router.get('/place-order',varifyLogin,async(req,res)=>{
+  let cartCount=await userController.getCartCount(req.session.name._id)
+  let total=await userController.getTotalAmount(req.session.name._id)
+  res.render('user/place-order',{total,cartCount})
+})
 
 
 module.exports = router;
