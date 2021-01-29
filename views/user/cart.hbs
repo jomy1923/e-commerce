@@ -32,9 +32,10 @@
                                    
                                     </td>
                                     <td>
-                                     <button type="button" class="btn btn-primary " onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{user._id}}',-1)" >-</button>
+                                  
+                                     <button type="button" class="btn btn-primary " onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',-1)" >-</button>
                                      <span id="{{this.product._id}}">{{this.quantity}}</span>
-                                     <button type="button" class="btn btn-primary " onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{user._id}}',1)" >+</button>  
+                                     <button type="button" class="btn btn-primary " onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',1)" >+</button>  
                                     </td>
                                     <td class="product-subtotal">$70.00</td>
                                     <td class="product-remove">
@@ -146,14 +147,14 @@
     </main> <!-- ::::::  End  Main Container Section  ::::::  -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        function changeQuantity(userId,cartId,proId,count){
+        function changeQuantity(cartId,proId,userId,count){
             let quantity=parseInt(document.getElementById(proId).innerHTML)
             count=parseInt(count)
-            console.log(userId)
+            console.log('hi',userId,cartId,proId,count)
             $.ajax({
                 url:'/change-product-quantity',
                 data:{
-                    user:userId,
+                   user:userId,
                     cart:cartId,
                     product:proId,
                     count:count,
@@ -166,7 +167,8 @@
                         location.reload()
                     }else{
                         document.getElementById(proId).innerHTML=quantity+count
-                        document.getElementById(total).innerHTML=response.total
+                        document.getElementById('total').innerHTML=response.total
+                        location.reload()
                     }
                     
                 }

@@ -1,0 +1,47 @@
+<!--Table-->
+<table class="table table-striped w-100%">
+
+  <!--Table head-->
+  <thead>
+    <tr class="table-warning">
+      <th>Date</th>
+      <th>Pincode</th>
+      <th>Mobile</th>
+      <th>Address</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Payment</th>
+      <th>status</th>
+      <th>View</th>
+
+    </tr>
+  </thead>
+  <!--Table head-->
+
+  <!--Table body-->
+  <tbody>
+
+  {{#each orders}}
+    <tr class="table">
+
+      <td>{{this.date}}</td>
+       <td>{{this.deliveryDetails.pincode}}</td>
+      <td>{{this.deliveryDetails.mobile}}</td>
+      <td>{{this.deliveryDetails.address}}</td>
+      <td>{{this.getTotalAmount}}</td>
+      <td>{{this.paymentMethod}}</td>
+      <td>{{this.status}}</td>
+     
+      <td>
+        <a href="/view-order-products/{{this._id}}" class="btn btn-primary ">view products</a>
+      </td>
+    </tr>
+    {{/each}}
+
+   
+
+  </tbody>
+  <!--Table body-->
+
+
+</table>
+<!--Table-->

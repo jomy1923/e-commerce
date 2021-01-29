@@ -36,6 +36,7 @@ module.exports={
      })
  },
  updateProduct:(proId,proDetails)=>{
+    proDetails.Price=parseInt(proDetails.Price)
      return new Promise((resolve,reject)=>{
          db.get().collection(collection.PRODUCT_COLLECTION)
          .updateOne({_id:objectId(proId)},{
