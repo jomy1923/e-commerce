@@ -125,13 +125,11 @@ router.get("/logout", (req, res) => {
   res.redirect("/login");
 });
 router.get('/cart',varifyLogin,async(req,res)=>{
- 
-  
-    
   userController.getCartProducts(req.session.name._id).then(async(products)=>{
+    let totalValue=0
     if(products.length>0){
       let cartCount=await userController.getCartCount(req.session.name._id)    
-    let totalValue=await userController.getTotalAmount(req.session.name._id)
+    totalValue=await userController.getTotalAmount(req.session.name._id)
     res.render('user/cart',{products,cartCount,userName:req.session.name,totalValue})
     }else{
       res.render('user/empty-cart',{userName:req.session.name})
@@ -185,6 +183,7 @@ router.post('/place-order',async(req,res)=>{
   let products=await userController.getCartProductList(req.body.userId)
   let totalPrice=await userController.getTotalAmount(req.session.name._id)
 userController.placerOrder(req.body,products,totalPrice).then((orderId)=>{
+  console.log(req.body,'jjjjj');
   if(req.body['payment-method']=='COD'){
     res.json({codSuccess:true})
   }else {
@@ -216,6 +215,15 @@ router.get('/view-order-products/:id',varifyLogin,async(req,res)=>{
 })
 router.post('/verify-payment',(req,res)=>{
   console.log(req.body);
+  userController.verifyPayment(req.body).then(()=>{
+    userController.changePaymentStatus(req.body['order[receipt]']).then(()=>{
+      console.log("payment success");
+      res.json({status:true})
+    })
+  }).catch((err)=>{ 
+    console.log(err);
+res.json({status:false,errMsg:'payment failed'})
+  })
 })
 
 

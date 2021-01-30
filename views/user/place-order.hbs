@@ -1,3 +1,4 @@
+<body>
 <!-- ::::::  Start  Main Container Section  ::::::  -->
 <main id="main-container" class="main-container">
     <div class="container">
@@ -143,8 +144,11 @@
         </div>
     </div>
 </main> <!-- ::::::  End  Main Container Section  ::::::  -->
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  
 
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+ <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</body>
 <script>
     $("#checkout").submit((e) => {
         e.preventDefault();
@@ -155,9 +159,10 @@
             success: (response) => {
                 console.log('res',response)
                 if(response.codSuccess){
-                    alert('order placed')
+                   
                     location.href='/order-success'
                }else{
+                   console.log(response,'ajamal')
                    razorpayPayment(response)
                } 
                 
@@ -174,10 +179,7 @@
     "image": "https://example.com/your_logo",
     "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "handler": function (response){
-        alert(response.razorpay_payment_id);
-        alert(response.razorpay_order_id);
-        alert(response.razorpay_signature)
-
+       
         verifyPayment(response,order)
     },
     "prefill": {
@@ -201,8 +203,15 @@ var rzp1 = new Razorpay(options);
             data:{
                 payment,
                 order
+            },
+            method:'post',
+            success:(response)=>{
+                if(response.status){
+                     location.href='/order-success'
+                }else{
+                    alert('payment is failed')
+                }
             }
-            method:'post'
         })
     }
 </script>
