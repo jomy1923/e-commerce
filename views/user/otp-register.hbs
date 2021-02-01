@@ -11,7 +11,7 @@
                                 <div class="login-register-wrapper">
                                     <div class="login-register-tab-list nav">
                                       
-                                            <h4 class="mt-5">LOGIN</h4>
+                                            <h4 class="mt-5">OTP LOGIN</h4>
                                        
                                         
                                     </div>
@@ -21,16 +21,15 @@
                                                 <div class="login-register-form">
                                                     <form >
                                                         <div class="form-box__single-group">
-                                                            <input type="text" id="form-username" name="username" placeholder="Username">
+                                                            <input type="number" id="number" name="number" placeholder="enter your phone number">
                                                         </div>
                                                         <div class="form-box__single-group">
-                                                            <input type="password" id="form-username-password" name="password" placeholder="Enter password">
+                                                            <input type="number" id="otp" name="otp" placeholder="Enter the otp">
                                                         </div>
-                                                         <span id="invalid"  class="text-danger d-flex justify-content-center" style="display: none !important;">Invalid username or password</span>
+                                                         <span id="invalid"  class="text-danger d-flex justify-content-center" style="display: none !important;">Invalid otp</span>
                                                         <button id="button" class="btn btn--box btn--small btn--blue btn--uppercase btn--weight m-tb-20" type="submit">LOGIN</button>
                                                         
                                                     </form>
-                                                     <a  href="/register" >create new account?</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a  href="/otp-login" >forgot password?</a>
                                                    
                                                    
                                                 </div>
@@ -56,7 +55,7 @@
         let uname=$('#form-username').val()
         let password=$('#form-username-password').val()
         $.ajax({
-            url:'/login',
+            url:'/otp-register',      
             method:'post',
             data:{
                 uname,

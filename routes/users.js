@@ -80,10 +80,10 @@ router.post('/login',function(req,res){
       req.session.loggedIn=true
        req.session.name=response.user
        req.session.role=response.user.role
-       res.send({ user: true,roles:role }); 
+       res.json({ user: true,roles:role }); 
    })
    .catch((response) => {
-     res.send({ user: false,roles:role });
+     res.json({ user: false,roles:role });
    });
    
 
@@ -225,6 +225,63 @@ router.post('/verify-payment',(req,res)=>{
 res.json({status:false,errMsg:'payment failed'})
   })
 })
+router.get('/otp-login', (req, res) => {
+  if (req.session.user) {
+    res.redirect('/user-home')
+  } else {
+    res.render('user/otp-register')
 
+  }
+})
+router.post('/otp-register', (req, res) => {
+
+
+  userHelpers.otpUserCheck(req.body).then(() => {
+    userHelpers.otpEmailCheck(req.body).then(() => {
+
+      var data = new FormData();
+
+
+
+
+      data.append('mobile', +91 + req.body.mobile);
+      data.append('sender_id', 'SMSINFO');
+      data.append('message', 'Your otp code for registering {code}');
+      data.append('expiry', '900');
+
+
+      var config = {
+        method: 'post',
+        url: 'https://d7networks.com/api/verifier/send',
+        headers: {
+          'Authorization': 'Token 6006332f15b6afb6c2a4b9527f3e21fe63dd41fa',
+          ...data.getHeaders()
+        },
+        data: data
+      };
+
+      axios(config)
+        .then(function (response) {
+
+          otpid = response.data.otp_id
+          res.json({ status: true })
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }).catch(() => {
+      res.json({ email: true })
+    })
+
+  })
+    .catch(() => {
+
+      res.json({ number: true })
+
+    })
+
+
+
+})
 
 module.exports = router;

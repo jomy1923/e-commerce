@@ -13,7 +13,7 @@
                                 <div class="login-register-wrapper">
                                     <div class="login-register-tab-list nav">
                                       
-                                            <h4 class="mt-5">REGISTER</h4>
+                                            <h4 class="mt-5">UPDATE USER DETAILS</h4>
                                        
                                         
                                     </div>
@@ -21,21 +21,19 @@
                                         <div id="lg1" class="tab-pane active">
                                             <div class="login-form-container">
                                                 <div class="login-register-form">
-                                                    <form action="/register" method="post">
+                                                    <form  method="POST" action="/edit-users/{{users._id}}">
                                                         <div class="form-box__single-group">
-                                                            <input type="text" id="form-username" name="uname" placeholder="Username" required>
+                                                            <input type="text" id="form-username" name="uname" placeholder="Username" value="{{users.uname}}" required>
                                                         </div>
                                                          <div class="form-box__single-group">
-                                                            <input type="email" id="email" name="email" placeholder="Enter email" required>
-                                                        </div>
-                                                         <div class="form-box__single-group">
-                                                            <input type="number" id="number" name="number" placeholder="Enter phone number" required>
+                                                            <input type="email" id="email" name="email" placeholder="Enter email" value="{{users.email}}" required>
                                                         </div>
                                                         <div class="form-box__single-group">
-                                                            <input type="password" id="form-username-password" name="password" placeholder="Enter password" required>
+                                                            <input type="number" id="number" name="number" placeholder="Enter phone number" value="{{users.phNo}}" required>
                                                         </div>
+                                            
                                                         <p id="error" style="display: none;" class="text-danger"> Username Already exists</p>
-                                                        <button class="btn btn--box btn--small btn--blue btn--uppercase btn--weight m-tb-20" id="btn" type="submit">REGISTER</button>
+                                                        <button class="btn btn--box btn--small btn--blue btn--uppercase btn--weight m-tb-20" id="btn" type="submit">UPDATE</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -52,30 +50,5 @@
             </div>
         </div>
     </main> <!-- ::::::  End  Main Container Section  ::::::  -->
-<script>
-    $('#btn').click((event)=>{
-        event.preventDefault()
-        
-        let uname=$('#form-username').val()
-        let email=$('#email').val()
-        let phNo=$('#number').val()
-        let password=$('#form-username-password').val()
-        $.ajax({
-            url:'/register',
-            method:'POST',
-            data:{uname,email,phNo,password},
-            success:(response)=>{
-                if(response.user==false){
-                    $('#error').show()
-                }else{
-                    $('#error').hide()
-                    alert('you are register sucessfully')
-                    window.location.href='/login'
-                }
-                
-            }
-        })
 
-    })
-</script>
 

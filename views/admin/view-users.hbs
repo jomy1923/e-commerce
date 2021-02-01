@@ -1,0 +1,43 @@
+<!--Table-->
+<table class="table table-striped w-100%" id="productsTable">
+
+  <!--Table head-->
+  <thead>
+    <tr class="table-warning">
+      <th>count</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Action</th>
+
+    </tr>
+  </thead>
+  <!--Table head-->
+
+  <!--Table body-->
+  <tbody>
+      {{#each users}}
+    
+        <tr class="table-info">
+      <th scope="row">{{@index}}</th>
+      <td>{{this.uname}}</td>
+      <td>{{this.email}}</td>
+      <td>{{this.phNo}}</td>
+      <td>
+        <a href="/edit-users/{{this._id}}" class="btn btn-primary mt-3">Edit</a>
+        {{#if this.block}}
+        <a href="/unblock-users/{{this._id}}" class="btn btn-success mt-3">Unblock</a>
+        {{else}}
+        <a href="/block-users/{{this._id}}" class="btn btn-danger mt-3" onclick="return confirm('do you need to block the {{this.uname}}?! ')">Block</a>
+        {{/if}}
+      </td>
+    </tr>
+     
+   {{/each}}
+   
+  </tbody>
+  <!--Table body-->
+
+
+</table>
+<!--Table-->

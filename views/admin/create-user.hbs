@@ -13,7 +13,7 @@
                                 <div class="login-register-wrapper">
                                     <div class="login-register-tab-list nav">
                                       
-                                            <h4 class="mt-5">REGISTER</h4>
+                                            <h4 class="mt-5">ADD NEW USERS</h4>
                                        
                                         
                                     </div>
@@ -28,14 +28,14 @@
                                                          <div class="form-box__single-group">
                                                             <input type="email" id="email" name="email" placeholder="Enter email" required>
                                                         </div>
-                                                         <div class="form-box__single-group">
+                                                          <div class="form-box__single-group">
                                                             <input type="number" id="number" name="number" placeholder="Enter phone number" required>
                                                         </div>
                                                         <div class="form-box__single-group">
                                                             <input type="password" id="form-username-password" name="password" placeholder="Enter password" required>
                                                         </div>
                                                         <p id="error" style="display: none;" class="text-danger"> Username Already exists</p>
-                                                        <button class="btn btn--box btn--small btn--blue btn--uppercase btn--weight m-tb-20" id="btn" type="submit">REGISTER</button>
+                                                        <button class="btn btn--box btn--small btn--blue btn--uppercase btn--weight m-tb-20" id="btn" type="submit">ADD A NEW USER</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -61,7 +61,7 @@
         let phNo=$('#number').val()
         let password=$('#form-username-password').val()
         $.ajax({
-            url:'/register',
+            url:'/create-users',
             method:'POST',
             data:{uname,email,phNo,password},
             success:(response)=>{
@@ -69,8 +69,8 @@
                     $('#error').show()
                 }else{
                     $('#error').hide()
-                    alert('you are register sucessfully')
-                    window.location.href='/login'
+                    alert('NEW USER ADDED SUCCESSFULLY')
+                    window.location.href='/users'
                 }
                 
             }
