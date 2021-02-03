@@ -96,9 +96,9 @@
                                         <div class="header-add-cart pos-relative m-l-40">
                                             <a href="#offcanvas-add-cart__box" class="offcanvas-toggle">
                                                 <i class="icon-shopping-cart"></i>
-                                                 {{!-- {{#if cartCount}} --}}
+                                                 {{#if cartCount}}
                                                 <span class="wishlist-item-count pos-absolute" id="cart-count" >{{cartCount}}</span>
-                                                {{!-- {{/if}} --}}
+                                                {{/if}}
                                             </a>
                                         </div> <!-- End Header Add Cart Box -->
                                     </div>
@@ -160,9 +160,12 @@
                                     </ul>
                                     <!--Single Dropdown Menu-->
                                 </li> <!-- End Single Nav link-->
+                               {{#if userName}}
                                  <li class="header__nav-item pos-relative">
                                      <a href="/logout" class="header__nav-link">LOGOUT</a>
                                 </li>
+                                {{/if}}
+                                
                             </ul>
                         </nav>
                     </div>

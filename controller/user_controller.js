@@ -389,6 +389,28 @@ module.exports={
                 resolve()
             })
         })
+    },
+    otpUserCheck: (userData)=>{
+
+        return new Promise(async (resolve, reject) => {
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ phNo: userData.mobile })
+
+            if (user) {
+                console.log("success phn number verified");
+                resolve()
+               
+            } else {
+                reject()
+            }
+        })
+    },
+    otpLogin:(userData)=> {
+        return new Promise(async (resolve, reject) => {
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ phNo: userData.mobile })
+            resolve(user)
+
+
+        })
     }
    
 }

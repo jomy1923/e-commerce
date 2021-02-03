@@ -21,13 +21,18 @@
                                                 <div class="login-register-form">
                                                     <form >
                                                         <div class="form-box__single-group">
-                                                            <input type="number" id="number" name="number" placeholder="enter your phone number">
+                                                            <input type="number" id="number" name="number" placeholder="enter your phone number" required>
+                                                            <span id="invalid"  class="text-danger d-flex justify-content-center" style="display: none !important;">Invalid otp</span>
                                                         </div>
                                                         <div class="form-box__single-group">
-                                                            <input type="number" id="otp" name="otp" placeholder="Enter the otp">
+                                                            <input type="number" id="otp" name="otp" placeholder="Enter the otp" style="display: none;" >
+                                                            <span id="invalid3"  class="text-danger d-flex justify-content-center" style="display: none !important;">Invalid otp</span>
                                                         </div>
-                                                         <span id="invalid"  class="text-danger d-flex justify-content-center" style="display: none !important;">Invalid otp</span>
-                                                        <button id="button" class="btn btn--box btn--small btn--blue btn--uppercase btn--weight m-tb-20" type="submit">LOGIN</button>
+                                                         
+                                                        <button id="button" class="btn btn--box btn--small btn--blue btn--uppercase btn--weight m-tb-20" type="submit">GET OTP</button>
+                                                        <button id="resendButton" class="btn btn--box btn--small btn--blue btn--uppercase btn--weight m-tb-20" type="submit" style="display: none;" >RESEND OTP</button>
+                                                        <button id="button-otp" class="btn btn--box btn--small btn--blue btn--uppercase btn--weight m-tb-20" type="submit" style="display: none;">LOGIN</button>
+
                                                         
                                                     </form>
                                                    
@@ -52,26 +57,67 @@
     $('#button').click((event)=>{
        
         event.preventDefault();
-        let uname=$('#form-username').val()
-        let password=$('#form-username-password').val()
+        let mobile=$('#number').val()
+        $('#invalid').hide()
+        
         $.ajax({
-            url:'/otp-register',      
+            url:'/otp-login',      
             method:'post',
             data:{
-                uname,
-                password
+                mobile,
             },
             success:(response)=>{
-                if(response.status==false){
-                    $('#invalid').show()
+                if(response.status==true){
+                    $('#button').hide()
+                     $('#number').attr('readonly',true)
+                    
+                      $('#otp').show()
+                       $('#resendButton').show()
+                      $('#button-otp').show()
+                    $('#invalid3').hide()
                 }else{
-                    if(response.user.role===0){
-                        window.location.href='/admin'
-                    }else{
-                        window.location.href='/'
-                    }
+                    $('#invalid3').show()
                 }
             }
         })
+    })
+
+</script>
+<script>
+    
+     $('#button-otp').click((e)=>{
+        e.preventDefault()
+        let mobile=$('#number').val()
+        let otp=$('#otp').val()
+        console.log(mobile,otp)
+        
+        $.ajax({
+            url:'/otp-login-verify',
+            method:'post',
+            data:{
+                otp,mobile
+            },
+            success:(response)=>{
+                if(response.status){
+                    window.location.href="/"
+                }
+                else{
+                    $('#invalid3').show()
+                }
+            }
+        })    
     })   
+    $('#resendButton').click((e)=>{
+        e.preventDefault()
+        $.ajax({
+            url:'/resend-otp',
+            method:'post',
+            success:(response)=>{
+                if(response.status){
+                    $('#invalid3').hide()
+                }
+            }
+        })
+    })
+
 </script>
