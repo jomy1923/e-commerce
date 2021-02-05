@@ -79,14 +79,21 @@ router.post('/login',function(req,res){
     }
   }else{
     userController.login(req.body).then((response)=>{
-    
+      console.log(response,'after user controller response');
       req.session.loggedIn=true
        req.session.name=response.user
        req.session.role=response.user.role
        res.json({ user: true,roles:role }); 
    })
    .catch((response) => {
-     res.json({ user: false,roles:role });
+     console.log(response,'user response')
+     if(response.block){
+      res.json({block:true})
+     }else if(response.invalidUser){
+      res.json({invalidUser:true});
+     }
+     
+     
    });
    
 

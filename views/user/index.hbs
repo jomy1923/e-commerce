@@ -131,14 +131,14 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="swiper-outside-arrow-fix pos-relative">
-                            <div class="product-default-slider-5grid overflow-hidden  m-t-50">
+                            <div class="product-default-slider-5grid overflow-hidden  m-t-10">
                                 <div class="swiper-wrapper">
                                     <!-- Start Single Default Product -->
                                     {{#each products}}
                                     <div class="product__box product__box--default product__box--border-hover swiper-slide text-center">
                                         <div class="product__img-box">
                                             <a href="#" class="product__img--link">
-                                                <img class="product__img" src="/img/product-images/{{this._id}}.jpg" alt="">
+                                                <img class="product__img" src="/img/product-images/{{this._id}}.jpg " alt="" width="500" height="200">
                                             </a>
 
                                            <button onclick="addToCart('{{this._id}}')" class="btn btn-primary"> Add to  cart</button> 

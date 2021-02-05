@@ -31,10 +31,10 @@
     <link rel="stylesheet" href=" /css/vendor/vendor.min.css"/>
     <link rel="stylesheet" href=" /css/plugin/plugins.min.css"/>
     <link rel="stylesheet" href=" /css/main.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
-
+    
+         <script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+    
  
 </head>
 
@@ -115,10 +115,10 @@
                             <ul class="header__nav">
                                 <!--Start Single Nav link-->
                                 <li class="header__nav-item pos-relative">
-                                    <a href="/admin" class="header__nav-link">ADMIN HOME</a>   
+                                    <a href="/admin" class="header__nav-link">DASHBOARD</a>   
                                 </li> <!-- End Single Nav link-->
-          <li class="header__nav-item pos-relative">
-                                    <a href="#" class="header__nav-link"> PRODUCT MANAGEMENT<i class="icon-chevron-down"></i></a>
+                                    <li class="header__nav-item pos-relative">
+                                    <a href="#" class="header__nav-link"> PRODUCT<i class="icon-chevron-down"></i></a>
                                     <!--Single Dropdown Menu-->
                                     <ul class="dropdown__menu pos-absolute">
                                         <li class="dropdown__list"><a href="/all-products" class="dropdown__link"> ALL PRODUCTS</a></li>
@@ -128,26 +128,49 @@
                                 </li> <!-- End Single Nav link-->
                                  <!--Start Single Nav link-->
                                 <li class="header__nav-item pos-relative">
-                                    <a href="#" class="header__nav-link"> USER MANAGEMENT<i class="icon-chevron-down"></i></a>
+                                    <a href="#" class="header__nav-link"> USERS<i class="icon-chevron-down"></i></a>
                                     <!--Single Dropdown Menu-->
                                     <ul class="dropdown__menu pos-absolute">
                                         <li class="dropdown__list"><a href="/users" class="dropdown__link"> ALL USERS</a></li>
                                         <li class="dropdown__list"><a href="/create-users" class="dropdown__link"> ADD USER</a></li>
-                                        <li class="dropdown__list"><a href="/login" class="dropdown__link">LOGIN</a></li>
-                                        <li class="dropdown__list"><a href="compare.html" class="dropdown__link">MY WISHLIST</a></li>
-                                        <li class="dropdown__list"><a href="empty-cart.html" class="dropdown__link">CHECKOUT</a></li>
+                                     
                                        
                                     </ul>
                                     <!--Single Dropdown Menu-->
                                 </li> <!-- End Single Nav link-->
+                                 <!--Start Single Nav link-->
+                                <li class="header__nav-item pos-relative">
+                                    <a href="/category" class="header__nav-link"> CATEGORY<i class="icon-chevron-down"></i></a>
+                                    <!--Single Dropdown Menu-->
+                                    <ul class="dropdown__menu pos-absolute">
+                                        <li class="dropdown__list"><a href="/category" class="dropdown__link"> ALL CATEGORY</a></li>
+                                        <li class="dropdown__list"><a href="/add-category" class="dropdown__link"> ADD CATEGORY</a></li>
+                                    </ul>
+                                    <!--Single Dropdown Menu-->
+                                </li> <!-- End Single Nav link-->
+                               
+                                
                                  <li class="header__nav-item pos-relative">
                                      <a href="/logout" class="header__nav-link">ALL ORDERS</a>
                                 </li>
+                                
+                                 <li class="header__nav-item pos-relative">
+                                     <a href="/logout" class="header__nav-link">REPORT</a>
+                                </li>
+                                 <li class="header__nav-item pos-relative">
+                                     <a href="/logout" class="header__nav-link">COUPON</a>
+                                </li>
+                                 <li class="header__nav-item pos-relative">
+                                     <a href="/logout" class="header__nav-link">OFFERS</a>
+                                </li>
+                                 
+                                
 
                                 <!--Start Single Nav link-->
                                 <li class="header__nav-item pos-relative">
                                      <a href="/logout" class="header__nav-link">LOGOUT</a>
                                 </li> <!-- End Single Nav link-->
+                                
                             </ul>
                         </nav>
                     </div>
@@ -157,4 +180,8 @@
         </div> <!-- ::::::  End Large Header Section  ::::::  -->
 
         <div class="offcanvas-overlay"></div>
+        
+        <div  class="row col-12 ml-0" style="background-color: rgb(245, 7, 7);">
+<hr>
+        </div>
     </header> <!-- ::::::  End  Header Section  ::::::  -->   

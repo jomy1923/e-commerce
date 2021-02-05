@@ -1,0 +1,68 @@
+ <!-- ::::::  Start  Main Container Section  ::::::  -->
+    <main id="main-container" class="main-container"m-tb-20>
+        <div class="container">
+            <div class="row">
+               <div class="col-12">
+                <!-- login area start -->
+                <div class="login-register-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                                <div class="login-register-wrapper">
+                                    <div class="login-register-tab-list nav">
+                                      
+                                            <h4 class="mt-5" style="color: #2b07f8;">ADD CATEGORY</h4>
+                                       
+                                        
+                                    </div>
+                                    <div class="tab-content">
+                                        <div id="lg1" class="tab-pane active">
+                                            <div class="login-form-container">
+                                                <div class="login-register-form">
+                                                    <form id="add-category">
+                                                        <div class="form-box__single-group">
+                                                            <input type="text" id="category" name="category" placeholder="ENTER THE NEW CATEGORY">
+                                                        </div>
+                                                       <h4 style="color: red; display: none;" id="exists">Category all ready exists </h4>
+                                                        <button id="button" class="btn btn--box btn--small btn--blue btn--uppercase btn--weight m-tb-20" type="submit">ADD CATEGORY</button>
+                                                        
+                                                    </form>
+                                                   
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- login area end -->
+               </div>
+            </div>
+        </div>
+    </main> <!-- ::::::  End  Main Container Section  ::::::  -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script>
+    $('#add-category').submit((e) => {
+        e.preventDefault()
+        let productCategory = $('#category').val()
+        $('#exists').hide()
+        $.ajax({
+            url: '/add-category',
+            method: 'post',
+            data: {
+                productCategory
+            },
+            success: (response) => {
+                if (response.status) {
+                    window.location.href = '/category'
+                } else {
+                    $('#exists').show()
+                }
+            }
+        })
+    })
+</script>

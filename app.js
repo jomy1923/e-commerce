@@ -22,7 +22,21 @@ app.use(session({
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-app.engine('hbs',hbs({extname:'hbs',defaultLayout:'layout',layoutDir:__dirname+'/views/layouts/',partialsDir:__dirname+'/views/partials/'}))
+app.engine('hbs',hbs({
+  helpers: {
+    math: function (lvalue, opeator, rvalue) {
+      lvalue = parseFloat(lvalue);
+      rvalue = parseFloat(rvalue);
+      return {
+        "+": lvalue + rvalue,
+        "-": lvalue - rvalue,
+        "*": lvalue * rvalue,
+        "/": lvalue / rvalue,
+        "%": lvalue % rvalue,
+      }[opeator];
+    }
+  },
+  extname:'hbs',defaultLayout:'layout',layoutDir:__dirname+'/views/layouts/',partialsDir:__dirname+'/views/partials/'}))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

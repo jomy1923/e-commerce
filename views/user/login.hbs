@@ -27,6 +27,8 @@
                                                             <input type="password" id="form-username-password" name="password" placeholder="Enter password">
                                                         </div>
                                                          <span id="invalid"  class="text-danger d-flex justify-content-center" style="display: none !important;">Invalid username or password</span>
+                                                          <span id="invalid2"  class="text-danger d-flex justify-content-center" style="display: none !important;">you are blocked</span>
+                                                         <span id="invalid3"  class="text-danger d-flex justify-content-center" style="display: none !important;">Invalid user</span>
                                                         <button id="button" class="btn btn--box btn--small btn--blue btn--uppercase btn--weight m-tb-20" type="submit">LOGIN</button>
                                                         
                                                     </form>
@@ -53,6 +55,8 @@
     $('#button').click((event)=>{
        
         event.preventDefault();
+         $('#invalid').hide()
+          $('#invalid2').hide()
         let uname=$('#form-username').val()
         let password=$('#form-username-password').val()
         $.ajax({
@@ -63,15 +67,22 @@
                 password
             },
             success:(response)=>{
-                if(response.status==false){
-                    $('#invalid').show()
-                }else{
-                    if(response.user.role===0){
+                console.log(response,'response login')
+                if(response.block==true){
+                    $('#invalid2').show()
+                }else if(response.invalidUser==true){
+                     $('#invalid').show()
+                }else if(response.user==true){
+                     if(response.user.role==0){
                         window.location.href='/admin'
                     }else{
                         window.location.href='/'
                     }
+                }else{
+                    $('#invalid3').show()
                 }
+
+                
             }
         })
     })   

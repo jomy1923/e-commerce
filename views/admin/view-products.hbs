@@ -1,5 +1,8 @@
 <!--Table-->
-<table class="table table-striped w-100%" id="productsTable">
+ 
+
+
+<table class="table table-striped w-100%" id="productsTable " >
 
   <!--Table head-->
   <thead>
@@ -21,11 +24,11 @@
       {{#each products}}
     
         <tr class="table-info">
-      <th scope="row">{{@index}}</th>
+      <th scope="row">{{math @index "+" 1}}</th>
       <td>{{this.Name}}</td>
       <td>{{this.Price}}</td>
-      <td>{{this.Category}}</td>
-      <td>Quantity</td>
+      <td>{{this.category}}</td>
+      <td>{{this.Quantity}}</td>
       <td>{{this.Description}}</td>
       <td>
         <a href="/admin/edit-product/{{this._id}}" class="btn btn-secondary mt-3">Edit</a>
@@ -43,3 +46,10 @@
 
 </table>
 <!--Table-->
+
+<script>
+  $(document).ready( function () {
+    $('#productsTable').DataTable();
+    
+} );
+</script>

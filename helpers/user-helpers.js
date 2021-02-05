@@ -36,6 +36,7 @@ module.exports={
         })
     },
     blockUser:(userId)=>{
+        console.log(UserId,'the user id');
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(userId)},
             {

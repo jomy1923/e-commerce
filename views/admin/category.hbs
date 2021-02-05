@@ -1,0 +1,49 @@
+<!--Table-->
+ 
+
+
+<table class="table table-striped w-100%" id="productsTable " >
+    <h3 style="color: hsl(342, 100%, 50%);text-align: center" >ALL CATEGORY'S</h3>
+
+  <!--Table head-->
+  <thead>
+    <tr class="table-warning">
+      <th>count</th>
+      <th>Category Name</th>
+      <th>Options</th>
+      
+    </tr>
+  </thead>
+  <!--Table head-->
+
+  <!--Table body-->
+  <tbody>
+      {{#each category}}
+    
+        <tr class="table-info">
+      <th scope="row">{{math @index "+" 1}}</th>
+      <td>{{this.productCategory}}</td>
+
+      <td>
+        <a href="/edit-category/{{this._id}}" class="btn btn-secondary mt-2">Edit</a>
+        <a href="/delete-category/{{this._id}}" class="btn btn-danger mt-2" onclick="return confirm('do you need to delete the {{this.Name}}? ')">Delete</a>
+        
+      </td>
+    
+    </tr>
+     
+   {{/each}}
+   
+  </tbody>
+  <!--Table body-->
+
+
+</table>
+<!--Table-->
+
+<script>
+  $(document).ready( function () {
+    $('#productsTable').DataTable();
+    
+} );
+</script>

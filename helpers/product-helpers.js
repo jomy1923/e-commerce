@@ -4,15 +4,19 @@ var objectId=require('mongodb').ObjectID
 module.exports={
 
     addProduct: (product,callback)=>{
+        console.log(product)
 
         product.Price=parseInt(product.Price)
+        product.Quantity=parseInt( product.Quantity)
         db.get().collection('products').insertOne(product).then((data)=>{
             callback(data.ops[0]._id)
         })
     },
     getAllproducts:()=>{
+        
         return new Promise(async(resolve,reject)=>{
             let products=await db.get().collection(collection.PRODUCT_COLLECTION).find().toArray()
+            console.log(products);
             resolve(products)
 
         })   
@@ -36,21 +40,50 @@ module.exports={
      })
  },
  updateProduct:(proId,proDetails)=>{
+    console.log(proDetails,'product in edit');
     proDetails.Price=parseInt(proDetails.Price)
+    proDetails.Quantity=parseInt(proDetails.Quantity)
      return new Promise((resolve,reject)=>{
          db.get().collection(collection.PRODUCT_COLLECTION)
          .updateOne({_id:objectId(proId)},{
              $set:{
                  Name:proDetails.Name,
                  Price:proDetails.Price,
+                 category:proDetails.category,
+                 Quantity:proDetails.Quantity,
                  Description:proDetails.Description,
-                 Category:proDetails.Category,
                  
-
+                
              }
+             
          }).then((response)=>{
+             console.log(response,'response after updation');
              resolve()
          })
      })
- }
+ },
+ showCategory:function(){
+    return new Promise(async(resolve,reject)=>{
+        let category= await db.get().collection(collection.CATEGORY_COLLECTION).find().toArray()
+        resolve(category)
+    })
+},
+insertCategory:function (data){
+    return new Promise(async(resolve,reject)=>{
+        let category= await db.get().collection(collection.CATEGORY_COLLECTION).findOne({productCategory:data.productCategory})
+        if(category){
+            reject()
+        }else{
+            db.get().collection(collection.CATEGORY_COLLECTION).insertOne({productCategory:data.productCategory})
+            resolve()
+        }
+    })
+}, 
+showOneCategory:function(proId){
+    return new Promise(async(resolve,reject)=>{
+        category=await db.get().collection(collection.CATEGORY_COLLECTION).findOne({_id:objId(proId)})
+
+        resolve(category)
+    })
+}
 }

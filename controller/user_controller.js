@@ -14,23 +14,34 @@ module.exports={
             let loginStatus=false
             let response={}
             let user=await db.get().collection(collection.USER_COLLECTION).findOne({uname:userData.uname})
-            
+            console.log(user,'user is');
+
             if(user){
+                if(user.block){
+                    console.log('user blocked');
+                    response.block=true
+                    reject(response)
+                }else{
+                    bcrypt.compare(userData.password,user.password).then((status)=>{
+                        if(status){
+                            
+                            response.user=user
+                            response.status=true
+                            console.log(response,'after user is response');
+                            resolve(response)
+                        }else{
+                            console.log('login failed')
+                            response.invalidUserUser=true
+                            reject(response)
+                        }
+                    }) 
+                }
                 
-                bcrypt.compare(userData.password,user.password).then((status)=>{
-                    if(status){
-                        
-                        response.user=user
-                        response.status=true
-                        resolve(response)
-                    }else{
-                        console.log('login failed')
-                        reject({status:false})
-                    }
-                })  
+                
             }else{
                 console.log('login failed')
-                reject({status:false})
+                response.invalidUser=true
+                            reject(response)
 
 
             }
