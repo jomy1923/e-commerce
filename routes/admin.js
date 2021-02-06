@@ -158,13 +158,19 @@ userHelpers.updateUser(req.params.id,req.body).then(()=>{
 }
 })
 router.get('/block-users/:id',(req,res)=>{
+ 
+  console.log('entered');
+  
   let user=req.session.name
   let role=req.session.role
   if (user){
+    
     if(role===0){
+     
   let userId=req.params.id
+  console.log('usrid is',userId)
   userHelpers.blockUser(userId).then((data)=>{
-    res.redirect('/users')
+    res.redirect('/login')
   })
 }else{
   res.redirect('/login') 
@@ -261,7 +267,71 @@ router.post('/add-category', (req, res) => {
     res.redirect('/')
   }
 }
+})
+router.get('/edit-category/:id', (req, res) => {
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
+    proId = req.params.id
+
+    productHelpers.showOneCategory(proId).then((category) => {
+      res.render('admin/edit-category', { admin: true, category })
+    })
+  } else {
+    res.redirect('/')
+  }
+}
 
 })
+router.post('/edit-category', (req, res) => {
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
+    productHelpers.updateCategory(req.body.proId, req.body.productCategory).then(() => {
+      res.json({ status: true })
+    })
+      .catch(() => {
+        res.json({ status: false })
+      })
+  } else {
+    res.redirect('/')
+  }
+}
+})
+router.get('/delete-category/:id', (req, res) => {
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
+ 
+    
+    proId = req.params.id
+    productHelpers.deleteCategory(proId).then(() => {
+      res.redirect('/category')
+    })
+  } else {
+    res.redirect('/')
+  }
+}
 
+})
+router.get('/get-all-orders', (req, res) => {
+  userHelpers.getAllOrders().then((allOrders) => {
+
+console.log(allOrders);
+    res.render('admin/viewOrder-details', { admin: true, allOrders })
+  })
+})
+router.get('/ship-order/:id', (req, res) => {
+  userHelpers.shipOrder(req.params.id).then(() => {
+    res.redirect('/get-all-orders')
+  })
+})
+router.get('/cancel-order/:id', (req, res) => {
+  userHelpers.cancelOrder(req.params.id).then(() => {
+    res.redirect('/get-all-orders')
+  })
+})
 module.exports = router;

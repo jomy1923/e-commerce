@@ -208,7 +208,7 @@ userController.placerOrder(req.body,products,totalPrice).then((orderId)=>{
 })
 router.get('/order-success',varifyLogin,async(req,res)=>{
   let cartCount=await userController.getCartCount(req.session.name._id)
-res.render('user/order-success',{user:req.session.name,cartCount})
+res.render('user/order-success',{userName:req.session.name,cartCount})
 })
 router.get('/view-orders',varifyLogin,async(req,res)=>{
   let cartCount=await userController.getCartCount(req.session.name._id)
@@ -216,12 +216,12 @@ router.get('/view-orders',varifyLogin,async(req,res)=>{
   let orders=await userController.getUserOrder(req.session.name._id)
   console.log(orders,'qwertyuiolkjhgfds');
   
-  res.render('user/view-orders',{user:req.session.name,orders,cartCount})
+  res.render('user/view-orders',{userName:req.session.name,orders,cartCount})
 })
 router.get('/view-order-products/:id',varifyLogin,async(req,res)=>{
   let cartCount=await userController.getCartCount(req.session.name._id)
   let product=await userController.getOrderProducts(req.params.id)
-  res.render('user/view-order-products',{user:req.session.name,product,cartCount})
+  res.render('user/view-order-products',{userName:req.session.name,product,cartCount})
 })
 router.post('/verify-payment',(req,res)=>{
   console.log(req.body);

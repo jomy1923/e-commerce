@@ -81,9 +81,34 @@ insertCategory:function (data){
 }, 
 showOneCategory:function(proId){
     return new Promise(async(resolve,reject)=>{
-        category=await db.get().collection(collection.CATEGORY_COLLECTION).findOne({_id:objId(proId)})
+        category=await db.get().collection(collection.CATEGORY_COLLECTION).findOne({_id:objectId(proId)})
 
         resolve(category)
+    })
+},
+updateCategory:function(proId,proCategory){
+        
+    return new Promise(async(resolve,reject)=>{
+        category=await db.get().collection(collection.CATEGORY_COLLECTION).findOne({productCategory:proCategory})
+        if(category){
+            reject()
+        }else{
+            
+            db.get().collection(collection.CATEGORY_COLLECTION).updateOne({_id:objectId(proId)},{
+                $set:{
+                    productCategory:proCategory
+                }
+            }).then((response)=>{
+                resolve()
+            })
+            
+        }
+    })
+},
+deleteCategory:function(proId){
+    return new Promise(async(resolve,reject)=>{
+        db.get().collection(collection.CATEGORY_COLLECTION).removeOne({_id:objectId(proId)})
+        resolve()
     })
 }
 }

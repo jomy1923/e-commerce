@@ -7,10 +7,12 @@ const db = require('./config/connection')
 var session=require('express-session')
 var fileUpload=require('express-fileupload')
 
-
+const Handlebars = require('handlebars');
+const H = require('just-handlebars-helpers');
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
 var hbs=require('express-handlebars')
+H.registerHelpers(Handlebars);
 var app = express();
 app.use(session({
   secret: 'keyboard cat',

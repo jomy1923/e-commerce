@@ -11,7 +11,7 @@
                                 <div class="login-register-wrapper">
                                     <div class="login-register-tab-list nav">
                                       
-                                            <h4 class="mt-5" style="color: #2b07f8;">ADD CATEGORY</h4>
+                                            <h4 class="mt-5" style="color: #2b07f8;">EDIT CATEGORY</h4>
                                        
                                         
                                     </div>
@@ -21,13 +21,14 @@
                                                 <div class="login-register-form">
                                                     <form id="add-category">
                                                         <div class="form-box__single-group">
-                                                            <input type="text" id="category" name="category" placeholder="ENTER THE NEW CATEGORY">
+                                                            <input type="text" id="category" name="category" placeholder="ENTER THE NEW CATEGORY" required value="{{category.productCategory}}">
+                                                            <input type="text" name="" id="pro-id" value="{{category._id}}" style="display: none;">
                                                         </div>
                                                        <h4 style="color: red; display: none;" id="exists">Category all ready exists </h4>
-                                                        <button id="button" class="btn btn--box btn--small btn--blue btn--uppercase btn--weight m-tb-20" type="submit">ADD CATEGORY</button>
+                                                        <button id="button" class="btn btn--box btn--small btn--blue btn--uppercase btn--weight m-tb-20" type="submit">EDIT CATEGORY</button>
                                                         
                                                     </form>
-                                                   
+
                                                    
                                                 </div>
                                             </div>
@@ -49,12 +50,13 @@
     $('#add-category').submit((e) => {
         e.preventDefault()
         let productCategory = $('#category').val()
+         let proId=$('#pro-id').val()
         $('#exists').hide()
         $.ajax({
-            url: '/add-category',
+            url: '/edit-category',
             method: 'post',
             data: {
-                productCategory
+                productCategory,proId
             },
             success: (response) => {
                 if (response.status) {

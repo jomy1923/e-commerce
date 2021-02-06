@@ -1,0 +1,87 @@
+<!--Table-->
+ 
+
+
+<table class="table table-striped w-100%" id="productsTable " >
+
+  <!--Table head-->
+  <thead>
+    <tr class="table-warning">
+      <th>count</th>
+     <th>Order Date</th>
+      <th>User</th>
+      <th>Delivery Address</th>
+      <th>Payment method</th>
+      <th>Total amount</th>
+      <th>Order status</th>
+      <th>Updating status</th>
+      <th>Final status</th>
+
+    </tr>
+  </thead>
+  <!--Table head-->
+
+  <!--Table body-->
+  <tbody>
+      {{#each allOrders}}
+    
+        <tr class="table-info">
+      <th scope="row" class="pt-5">{{math @index "+" 1}}</th>
+      <td class="pt-5">{{this.date}}</td>
+      <td class="pt-5">{{this.deliveryDetails.firstName}}</td>
+      <td class="pt-3">{{this.deliveryDetails.country}}<br>
+     
+      {{this.deliveryDetails.state}}<br>
+      {{this.deliveryDetails.mobile}}<br>
+      {{this.deliveryDetails.address}}<br>
+      {{this.deliveryDetails.pincode}}<br>
+      {{this.deliveryDetails.email}}<br>
+      </td>
+      <td class="pt-5">{{this.paymentMethod}}</td>
+      <td class="pt-5">{{this.getTotalAmount}}</td>
+       <td class="pt-5">{{this.status}}</td>
+      
+         {{#if (eqw this.status 'placed')}}
+         {{#if (eqw this.ship 'Not Dispatched')}}
+      <td class="pt-3">
+        <a href="/ship-order/{{this._id}}" class="btn btn-primary mt-3">Ship</a>
+        <a href="/cancel-order/{{this._id}}" class="btn btn-danger mt-3" onclick="return confirm('do you need to cancel the order of {{this.getTotalAmount}}? ')">Cancel</a>
+        
+      </td>
+      {{else}}
+      <td style="color: rgb(110, 16, 233);" class="pt-5">already updated</td>
+      
+      {{/if}}
+      {{/if}}
+        {{#if (eqw this.ship 'Not Dispatched')}}
+      <td class="pt-5" style="color: rgb(235, 21, 14);">{{this.ship}}</td>
+      {{else}}
+      {{#if (eqw this.ship 'Order Cancelled')}}
+       <td class="pt-5" style="color: rgb(235, 21, 14);">{{this.ship}}</td>
+    {{else}}
+       <td  class="pt-5" style="color: rgb(14, 235, 62);">{{this.ship}}</td>
+      {{/if}}
+      {{/if}}
+
+      
+      
+      
+      
+       
+    </tr>
+     
+   {{/each}}
+   
+  </tbody>
+  <!--Table body-->
+
+
+</table>
+<!--Table-->
+
+<script>
+  $(document).ready( function () {
+    $('#productsTable').DataTable();
+    
+} );
+</script>

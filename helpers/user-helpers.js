@@ -36,7 +36,7 @@ module.exports={
         })
     },
     blockUser:(userId)=>{
-        console.log(UserId,'the user id');
+        console.log(userId,'the user id');
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(userId)},
             {
@@ -85,6 +85,37 @@ module.exports={
                 else{
                     reject()
                 }
+            })
+
+        })
+    },
+    getAllOrders: () => {
+        return new Promise(async (resolve, reject) => {
+            let allOrders = await db.get().collection(collection.ORDER_COLLECTION).find().toArray()
+            resolve(allOrders)
+        })
+    },
+    shipOrder: (id) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.ORDER_COLLECTION).updateOne({ _id: objectId(id) }, {
+                $set: {
+                    ship: 'Order Dispatched',
+                }
+            }).then((response) => {
+                console.log(response,'resposne');
+
+                resolve()
+            })
+        })
+    },
+    cancelOrder: (id) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.ORDER_COLLECTION).updateOne({ _id: objectId(id) }, {
+                $set: {
+                    ship: 'Order Cancelled',
+                }
+            }).then(() => {
+                resolve()
             })
 
         })

@@ -1,6 +1,7 @@
 var db = require('../config/connection')
 var collection= require('../config/collection')
 const bcrypt= require('bcrypt')
+const moment=require('moment')
 var objectId=require('mongodb').ObjectID
 const Razorpay=require('razorpay')
 var instance = new Razorpay({
@@ -279,10 +280,16 @@ module.exports={
             let status=order['payment-method']==='COD'?'placed':'pending'
             let orderObj={
                 deliveryDetails:{
-                    
+                    firstName:order['form-first-name'],
+                    lastName:order['form-last-name'],
+                    companyName:order['form-company-name'],
+                    country:order['form-country'],
+                    state:order['form-state'],
                     mobile:order['form-phone'],
                     address:order['form-address-1'],
-                    pincode:order['form-zipcode']
+                    pincode:order['form-zipcode'],
+                    email:order['form-email']
+                    
 
 
                 },
@@ -291,7 +298,8 @@ module.exports={
                 products:products,
                 getTotalAmount:total,
                 status:status,
-                date:new Date
+                date:moment(new Date).format('L'),
+                ship:"Not Dispatched"
 
             }
             db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response)=>{
