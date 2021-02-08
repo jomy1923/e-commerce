@@ -150,14 +150,17 @@ module.exports={
             },
             {
                 $project:{
-                    item:1,quantity:1,product:{$arrayElemAt:['$product',0]}
+                    item:1,quantity:1,product:{$arrayElemAt:['$product',0]},
+                    singleTotal:{$multiply:[{$arrayElemAt:['$product.Price',0]},'$quantity']}
+
                    
                 }
             }
             
         ]).toArray()
-      
         
+      
+        console.log('ajaml',cartItems);
         resolve(cartItems)
     }else{
         reject(response)
@@ -227,6 +230,7 @@ module.exports={
         })
     },
     getTotalAmount:(userId)=>{
+        
         return new Promise(async(resolve,reject)=>{
 
             let userCart= await  db.get().collection(collection.CART_COLLECTION).findOne({user:objectId(userId)})  
@@ -267,16 +271,22 @@ module.exports={
             
             
         ]).toArray()
-        console.log(total[0],total);
+        console.log('eueoiuoy',total);
+        if(total.length>0){
+            resolve(total[0].total)
+        }else{
+            total=0
+            resolve(total)
+        }
       
         
-        resolve(total[0].total)
+        
        })
 
     },
     placerOrder:(order,products,total)=>{
         return new Promise((resolve,reject)=>{
-            console.log(order,products,total,'qwertyuiop');
+            
             let status=order['payment-method']==='COD'?'placed':'pending'
             let orderObj={
                 deliveryDetails:{
@@ -326,7 +336,7 @@ module.exports={
         })
     },
     getOrderProducts:(orderId)=>{
-        console.log(orderId,'getorderproducts')
+        
         return new Promise(async(resolve,reject)=>{
                 let orderItems=await db.get().collection(collection.ORDER_COLLECTION).aggregate([
                     {
@@ -360,8 +370,7 @@ module.exports={
               
                 
                 resolve( orderItems)
-                console.log(orderItems,'orderproduct');
-
+               
             
         })
     },
@@ -429,6 +438,78 @@ module.exports={
             resolve(user)
 
 
+        })
+    },
+    getSingeTotal: (userId, proId) => {
+       
+        return new Promise(async (resolve, reject) => {
+
+            let total = await db.get().collection(collection.CART_COLLECTION).aggregate([
+                {
+                    $match: { user: objectId(userId) }
+
+                },
+                {
+                    $unwind: '$products'
+                },
+                {
+                    $project: {
+                        item: '$products.item',
+                        quantity: '$products.quantity',
+
+                    }
+                },
+                {
+                    $match: { item: objectId(proId) }
+                },
+                {
+                    $lookup: {
+                        from: collection.PRODUCT_COLLECTION,
+                        localField: 'item',
+                        foreignField: '_id',
+                        as: 'product',
+                    }
+                },
+                {
+                    $project: {
+                        item: 1,
+                        quantity: 1,
+                        product: { $arrayElemAt: ['$product', 0] }
+
+                    }
+                },
+                {
+                    $project: {
+                        _id:null,
+                        singleTotal:{ $multiply: ['$quantity', '$product.Price']}
+                       
+                }
+            }
+
+
+            ]).toArray()
+          
+           if(total.length>0){
+            resolve(total[0].singleTotal)
+           }else{
+               total=0;
+               resolve(total)
+           }
+
+          
+
+
+
+        })
+
+    },
+    deleteCart: function (details) {
+        console.log('details',details);
+
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.CART_COLLECTION).removeOne({ user: objectId(details.user)}).then((response) => {
+                resolve(true)
+            })
         })
     }
    

@@ -15,7 +15,7 @@
                                     <th>Product Name</th>
                                     <th>Until Price</th>
                                     <th>Qty</th>
-                                    <th>Subtotal</th>
+                                    <th>total</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -33,11 +33,11 @@
                                     </td>
                                     <td>
                                   
-                                     <button type="button" class="btn btn-primary " onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',-1)" >-</button>
+                                     <button type="button" class="btn btn-primary " onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userName._id}}',-1)" >-</button>
                                      <span id="{{this.product._id}}">{{this.quantity}}</span>
-                                     <button type="button" class="btn btn-primary " onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',1)" >+</button>  
+                                     <button type="button" class="btn btn-primary " onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../userName._id}}',1)" >+</button>  
                                     </td>
-                                    <td class="product-subtotal">$70.00</td>
+                                    <td class="product-subtotal" id="{{this.product._id}}9">{{this.singleTotal}}</td>
                                     <td class="product-remove">
                                        
                                         <button type="button" class="btn btn-primary mr-1" onclick="deleteProduct('{{this._id}}','{{this.product._id}}')"><i class="fa fa-times"></i></button>
@@ -50,11 +50,11 @@
                      <!-- Start Cart Table Button -->
                     <div class="cart-table-button m-t-10">
                         <div class="cart-table-button--left">
-                            <a href="#" class="btn btn--box btn--large btn--gray btn--uppercase btn--weight m-t-20">CONTINUE SHOPPING</a>
+                            <a href="/" class="btn btn--box btn--large btn--gray btn--uppercase btn--weight m-t-20">CONTINUE SHOPPING</a>
                         </div>
                         <div class="cart-table-button--right">
-                            <a href="#" class="btn btn--box btn--large btn--gray btn--uppercase btn--weight m-t-20 m-r-20">UPDATE SHOPPING CART</a>
-                            <a href="#" class="btn btn--box btn--large btn--blue btn--uppercase btn--weight m-t-20">Clear Shopping Cart</a>
+                           
+                            <button onclick="deleteCart('{{userName._id}}')" class="btn btn--box btn--large btn--blue btn--uppercase btn--weight m-t-20">Clear Shopping Cart</button>
                         </div>
                     </div>  <!-- End Cart Table Button -->
                 </div>
@@ -162,10 +162,13 @@
                 },
                 method:'post',
                 success:(response)=>{
+                    console.log('response----',response)
                     if(response.removeProduct){
+                       
                         alert('THE PRODUCT IS REMOVED FROM THE CART')
                         location.reload()
                     }else{
+                        document.getElementById(proId+9).innerHTML=response.singleTotal
                         document.getElementById(proId).innerHTML=quantity+count
                         document.getElementById('total').innerHTML=response.total
                         location.reload()
@@ -197,5 +200,21 @@
                 
             })
 
+        }
+        function deleteCart(userId){
+            console.log('userId',userId)
+        $.ajax({
+            url:'/delete-cart',
+            method:'post',
+            data:{
+                user:userId
+            },
+            success:(response)=>{
+                if(response){
+                    alert('ALL PRODUCTs WILL REMOVED FROM  CART')
+                    location.reload()
+                }
+            }
+        })
         }
     </script>

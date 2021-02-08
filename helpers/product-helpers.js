@@ -110,5 +110,11 @@ deleteCategory:function(proId){
         db.get().collection(collection.CATEGORY_COLLECTION).removeOne({_id:objectId(proId)})
         resolve()
     })
+},
+viewOneProduct: function (proId) {
+    return new Promise(async (resolve, reject) => {
+        let product = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({ _id: objectId(proId) })
+        resolve(product)
+    })
 }
 }

@@ -13,25 +13,20 @@
                         <div class="col-md-6">
                             <div class="form-box__single-group">
                                 <label for="form-first-name">First Name</label>
-                                <input type="text" id="form-first-name" name="form-first-name">
+                                <input type="text" id="form-first-name" name="form-first-name" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-box__single-group">
                                 <label for="form-last-name">Last Name</label>
-                                <input type="text" id="form-last-name" name="form-last-name">
+                                <input type="text" id="form-last-name" name="form-last-name" required>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="form-box__single-group">
-                                <label for="form-company-name">Company Name</label>
-                                <input type="text" id="form-company-name" name="form-company-name">
-                            </div>
-                        </div>
+                       
                         <div class="col-md-12">
                             <div class="form-box__single-group">
                                 <label for="form-country">Country</label>
-                                <select id="form-country" name="form-country">
+                                <select id="form-country" name="form-country" required>
                                     <option value="select-country" selected>Select a country</option>
                                     <option id="form-country">India</option>
                                     <option id="form-country">USA</option>
@@ -45,14 +40,14 @@
                             <div class="form-box__single-group">
                                 <label for="form-address-1">Street Address</label>
                                 <input type="text" id="form-address-1" name="form-address-1"
-                                    placeholder="House number and street name">
+                                    placeholder="House number and street name" required>
 
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-box__single-group">
                                 <label for="form-state">State</label>
-                                <select id="form-state" name="form-state">
+                                <select id="form-state" name="form-state" required>
                                     <option id="form-state" >Kerala</option>
                                     <option id="form-state">Tamil Nadu</option>
                                     <option id="form-state">Assam</option>
@@ -64,19 +59,19 @@
                         <div class="col-md-6">
                             <div class="form-box__single-group">
                                 <label for="form-zipcode">Postal Code</label>
-                                <input type="text" id="form-zipcode" name="form-zipcode">
+                                <input type="number" id="form-zipcode" name="form-zipcode" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-box__single-group">
                                 <label for="form-phone">Phone</label>
-                                <input type="text" id="form-phone" name="form-phone">
+                                <input type="number" id="form-phone" name="form-phone" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-box__single-group">
                                 <label for="form-email">Email Address</label>
-                                <input type="email" id="form-email" name="form-email">
+                                <input type="email" id="form-email" name="form-email" required>
                                 <input type="text" name="userId" id="" value="{{userName._id}}" hidden>
                             </div>
                         </div>
