@@ -1,0 +1,58 @@
+ <main>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 m-auto">
+                            <div class="bg-mattBlackLight my-2 p-3">
+                                <h2 style="color: aliceblue;" class="text-center">Update Offer Category</h2>
+                            </div>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6 m-auto">
+                                    <div class="bg-mattBlackLight my-2 p-3">
+                                        <form action="/add-category-offer/{{singleCategory._id}}" method="POST">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1"> Category</label>
+                                                <input type="text" class="form-control" id="sub-category"
+                                                    aria-describedby="emailHelp" placeholder="Enter new category"
+                                                    required name="productName" value="{{singleCategory.productCategory}}" readonly>
+                                                   
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Offer Start Date</label>
+                                                <input type="date" class="form-control" id="sub-category"
+                                                    aria-describedby="emailHelp" placeholder="Enter new offer"
+                                                    required name="startDate">
+
+                                                     <label for="exampleInputEmail1">Offer End Date</label>
+                                                <input type="date" class="form-control" id="sub-category"
+                                                    aria-describedby="emailHelp" placeholder="Enter new offer"
+                                                    required name="endDate">
+                                                    
+                                                   
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Offer for category</label>
+                                                <input type="number" class="form-control" id="sub-category"
+                                                    aria-describedby="emailHelp" placeholder="Enter new offer"
+                                                    required name="offer">
+                                                   
+
+                                            </div>
+                                            <div>
+                                                
+                                            <input type="submit" value="Update offer" class="btn btn-success">
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </main>

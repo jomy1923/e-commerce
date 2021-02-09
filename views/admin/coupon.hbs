@@ -1,0 +1,37 @@
+ <main>
+                <div class="container-fluid">
+                    <div class="col-md-12 m-auto">
+                        <div class="bg-mattBlackLight my-2 p-3" id="mad-max">
+                            <h2 style="color: rgb(241, 121, 9);" class="text-center">coupon manage</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-12 m-auto">
+                        <div class="bg-mattBlackLight my-2" id="mad-max">
+                           
+                            <table class="table mt-4" id="coupon-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Code</th>
+                                        <th scope="col">Date</th>
+                                        
+                                        <th scope="col">Offer</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each coupons}}
+                                    <tr>
+                                        <td>{{math @index "+" 1}}</td>
+                                        <td>{{this.coupon}}</td>
+                                        <td>From {{this.from}} To {{this.to}}</td>
+                                        <td>{{this.offer}} OFF</td>
+                                        <td><a href="/delete-coupon/{{this._id}}" class="btn btn-danger">Remove</a> </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>

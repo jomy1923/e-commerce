@@ -1,0 +1,61 @@
+<!--Table-->
+ 
+
+
+<table class="table table-striped w-100%" id="productsTable " >
+
+  <!--Table head-->
+  <thead>
+    <tr class="table-warning">
+      <th>count</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Category</th>
+      <th>Offers</th>
+     
+      <th>Options</th>
+      <th>Image</th>
+    </tr>
+  </thead>
+  <!--Table head-->
+
+  <!--Table body-->
+  <tbody>
+      {{#each products}}
+    
+        <tr class="table-info">
+      <th scope="row">{{math @index "+" 1}}</th>
+      <td>{{this.Name}}</td>
+      <td>{{this.Price}}</td>
+      <td>{{this.category}}</td>
+       {{#if this.offer}}
+       <td>{{this.offer}}</td>
+        {{else}}
+        <td>NILL</td>
+        {{/if}}
+    
+      <td>
+          {{#if this.offer}}
+        <a href="/delete-offer/{{this._id}}" class="btn btn-danger mt-3" onclick="return confirm('do you need to delete the offer-{{this.offer}}%? ')">Delete offer</a>
+{{else}}
+        <a href="/add-offer/{{this._id}}" class="btn btn-secondary mt-3">Edit offer</a>
+        {{/if}} 
+      </td>
+      <td><img style="width: 70px; height:70px;" src="/img/product-images/{{this._id}}.jpg" alt=""></td>
+    </tr>
+     
+   {{/each}}
+   
+  </tbody>
+  <!--Table body-->
+
+
+</table>
+<!--Table-->
+
+<script>
+  $(document).ready( function () {
+    $('#productsTable').DataTable();
+    
+} );
+</script>

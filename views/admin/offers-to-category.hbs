@@ -1,0 +1,59 @@
+<!--Table-->
+ 
+
+
+<table class="table table-striped w-100%" id="productsTable " >
+
+  <!--Table head-->
+  <thead>
+    <tr class="table-warning">
+      <th>count</th>
+      <th> Category Name</th>
+      <th>Offer</th>
+      <th>Offer period</th>
+      <th>Options</th>
+     
+    </tr>
+  </thead>
+  <!--Table head-->
+
+  <!--Table body-->
+  <tbody>
+      {{#each categories}}
+    
+        <tr class="table-info">
+      <th scope="row">{{math @index "+" 1}}</th>
+      <td>{{this.productCategory}}</td>
+      {{#if this.offer}}
+      <td>{{this.offer}}</td>
+      <td>{{this.startDate}} To {{this.endDate}}</td>
+      {{else}}
+      <td>NILL</td>
+        <td>NILL</td>
+        {{/if}}
+    
+      <td>
+          {{#if this.offer}}
+        <a href="/delete-category-offer/{{this.productCategory}}" class="btn btn-danger mt-3" onclick="return confirm('do you need to delete the {{this.offer}}? ')">Delete offer</a>
+    {{else}}
+        <a href="/add-category-offer/{{this._id}}" class="btn btn-secondary mt-3">Edit offer</a>
+        {{/if}}
+      </td>
+    
+    </tr>
+     
+   {{/each}}
+   
+  </tbody>
+  <!--Table body-->
+
+
+</table>
+<!--Table-->
+
+<script>
+  $(document).ready( function () {
+    $('#productsTable').DataTable();
+    
+} );
+</script>

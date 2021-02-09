@@ -301,12 +301,12 @@
                                         </a>
 
                                         <button onclick="addToCart('{{this._id}}')" data-toggle="modal" class="btn btn--box btn--small btn--gray btn--uppercase btn--weight btn--hover-zoom product__upper-btn">Add to cart</button> 
-                                         
-                                        <span class="product__tag product__tag--discount">-12%</span>
-                                       
+                                         {{#if this.offer}}
+                                        <span class="product__tag product__tag--discount">-{{this.offer}}%</span>
+                                       {{/if}}
                                     </div>
                                     <div class="product__price m-t-10">
-                                        <span class="product__price-del">$11.90</span>
+                                        <span class="product__price-del">{{this.oldPrice}}</span>
                                         <span class="product__price-reg">Rs.{{this.Price}}</span>
                                        
                                     </div>

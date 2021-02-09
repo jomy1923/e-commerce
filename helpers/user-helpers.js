@@ -3,6 +3,7 @@ var collection=require('../config/collection')
 var objectId=require('mongodb').ObjectID
 const { response } = require('express')
 const bcrypt= require('bcrypt')
+const moment=require('moment')
 module.exports={
     getAllUsers:()=>{
         return new Promise(async(resolve,reject)=>{
@@ -118,6 +119,39 @@ module.exports={
                 resolve()
             })
 
+        })
+    },
+    getAllCoupons:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let coupons= await db.get().collection(collection.COUPON_COLLECTION).find().toArray()
+
+            resolve(coupons)
+        })
+    },
+    saveCoupon:(coupon,date)=>{
+        console.log('date',date,'coupon',coupon);
+        let startDate=moment(date.startDate).format('L')
+        let endDate=moment(date.endDate).format('L')
+        let offer=parseInt(date.offer)
+        console.log('kundannn');
+        console.log('result',startDate,endDate,offer);
+        
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.COUPON_COLLECTION).insertOne({
+                from:startDate,
+                to:endDate,
+                offer:offer,
+                coupon:coupon
+            }).then(()=>{
+                resolve()
+            })
+        })
+    },
+    deleteCoupon:(proId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.COUPON_COLLECTION).removeOne({_id:objectId(proId)})
+
+            resolve()
         })
     }
 }

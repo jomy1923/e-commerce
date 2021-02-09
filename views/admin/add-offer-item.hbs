@@ -1,0 +1,70 @@
+<main>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 m-auto">
+                            <div class="bg-mattBlackLight my-2 p-3">
+                                <h2 style="color: aliceblue;" class="text-center">Add offer</h2>
+                            </div>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6 m-auto">
+                                    <div class="bg-mattBlackLight my-2 p-3">
+                                        <form action="/update-offer/{{singleProduct._id}}" method="POST">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Name</label>
+                                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                                    aria-describedby="emailHelp" value="{{singleProduct.Name}}"
+                                                    required name="productName" readonly>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="sel1">Category</label>
+                                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                                    aria-describedby="emailHelp"
+                                                    value="{{singleProduct.category}}" required
+                                                    name="productCategory" readonly>
+                                            </div>
+                                           
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Price</label>
+                                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                                    aria-describedby="emailHelp" value="{{singleProduct.Price}}"
+                                                    required name="productPrice" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Offer Start Date</label>
+                                                <input type="date" class="form-control" id="exampleInputPassword1"
+                                                    placeholder="New offer" required name="startDate" value="">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Offer End Date</label>
+                                                <input type="date" class="form-control" id="exampleInputPassword1"
+                                                    placeholder="New offer" required name="endDate" value="">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">New offer</label>
+                                                <input type="number" class="form-control" id="exampleInputPassword1"
+                                                    placeholder="New offer" required name="offer" value="">
+                                            </div>
+                                            
+
+
+                                            <div>
+
+
+                                                <input type="submit" class="btn btn-success" value="Update offer">
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </main>

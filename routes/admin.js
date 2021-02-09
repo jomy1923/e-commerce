@@ -2,7 +2,9 @@ var express = require('express');
 const user_controller = require('../controller/user_controller');
 var router = express.Router();
 const productHelpers=require('../helpers/product-helpers')
+var voucher_codes = require('voucher-code-generator');
 const userHelpers=require('../helpers/user-helpers')
+
 const userController=require('../controller/user_controller')
 const verifyLogin=(req,res,next)=>{
   if(req.session.loggedIn){
@@ -333,5 +335,90 @@ router.get('/cancel-order/:id', (req, res) => {
   userHelpers.cancelOrder(req.params.id).then(() => {
     res.redirect('/get-all-orders')
   })
+})
+router.get('/offers', (req, res) => {
+  productHelpers.getAllproducts().then((products) => {
+
+
+
+    res.render('admin/pro-offers', { admin: true, products })
+  })
+})
+router.get('/category-offer',(req,res)=>{
+  productHelpers.showCategory().then((categories)=>{
+    console.log('categories',categories);
+    res.render('admin/offers-to-category',{admin:true,categories})
+  })
+  
+})
+router.get('/add-offer/:id', (req, res) => {
+  productHelpers.viewOneProduct(req.params.id).then((singleProduct)=>{
+    console.log('singleProduct',singleProduct);
+    res.render('admin/add-offer-item',{singleProduct})
+  })
+})
+router.post('/update-offer/:id',(req,res)=>{
+  proId=req.params.id
+  console.log('id',proId,'offer',req.body);
+  productHelpers.updateOffer(proId,req.body).then(()=>{
+    res.redirect('/offers')
+  })
+})
+router.get('/delete-offer/:id',(req,res)=>{
+  proId=req.params.id
+  productHelpers.removeOffer(proId).then(()=>{
+    res.redirect('/offers')
+  })
+})
+router.get('/add-category-offer/:id',(req,res)=>{
+  productHelpers.showOneCategory(req.params.id).then((singleCategory)=>{
+    console.log('category single',singleCategory);
+    res.render('admin/offer-to-category-update',{singleCategory})
+    
+  })
+})
+
+router.post('/add-category-offer/:id',(req,res)=>{
+  console.log('params add category',req.params.id,'bo category',req.body);
+  proId=req.params.id
+  productHelpers.updateCategoryOffer(proId,req.body).then(()=>{
+    res.redirect('/category-offer')
+  })
+})
+router.get('/delete-category-offer/:id',(req,res)=>{
+  console.log('id here',req.params.id)
+  productHelpers.removeCategoryOffer(req.params.id).then(()=>{
+    res.redirect('/category-offer')
+  })
+})
+router.get('/coupon',(req,res)=>{
+  userHelpers.getAllCoupons().then((coupons)=>{
+    console.log('all coupons',coupons);
+    res.render('admin/coupon',{admin:true,coupons})
+  })
+  
+})
+router.get('/generate-code-form',(req,res)=>{
+  res.render('admin/coupon-form',{admin:true})
+})
+router.post('/generate-code',(req,res)=>{
+  console.log('hi generate');
+  let generateCode=voucher_codes.generate({
+    length:8,
+    count:5
+  })
+  console.log(generateCode[0]);
+  console.log('reqbody',req.body);
+  userHelpers.saveCoupon(generateCode[0],req.body).then(()=>{
+    res.redirect('/coupon')
+  })
+})
+router.get('/delete-coupon/:id',(req,res)=>{
+  proId=req.params.id
+
+  userHelpers.deleteCoupon(proId).then(()=>{
+    res.redirect('/coupon')
+  })
+  
 })
 module.exports = router;
