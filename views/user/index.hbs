@@ -293,7 +293,7 @@
                             <div class="tab-pane show active clearfix" id="sort-grid">
                                 <!-- Start Single Default Product -->
                                  {{#each products}}
-                                <div class="product__box product__box--default product__box--border-hover text-center float-left float-3">
+                                <div class="product__box product__box--default product__box--border-hover text-center float-left float-3 col-md-2">
                                     <div class="product__img-box">
                                         <a href="/" class="product__img--link">
                                             <img class="product__img"  src="/img/product-images/{{this._id}}.jpg " alt="">
@@ -341,7 +341,7 @@
                                                 <img class="product__img" src="/img/product-images/{{this._id}}.jpg " alt="" width="500" height="200">
                                             </a>
 
-                                           <button onclick="addToCart('{{this._id}}')" class="btn btn-primary"> Add to  cart</button> 
+                                           <button onclick="ad('{{this._id}}')" class="btn btn-primary"> Add to  cart</button> 
                                           
                                         </div>
                                         <div class="product__price m-t-10">
@@ -392,7 +392,22 @@
       
       
     </main> <!-- ::::::  End  Main Container Section  ::::::  --> --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-       
+       function addToCart(proId){
+    console.log('arrived in ajax');
+    $.ajax({
+        url:'/add-to-cart/'+proId,
+        method:'get',
+        success:(response)=>{
+            if(response.status){
+                alert('Added to cart')
+                let count=$('#cartCount').html()
+                count=parseInt(count)+1
+                $('#cartCount').html(count)
+            }            
+        }
+    })
+}
     </script>
 

@@ -2,6 +2,7 @@ var db=require('../config/connection')
 var collection=require('../config/collection')
 var objectId=require('mongodb').ObjectID
 const moment=require('moment')
+
 module.exports={
 
     addProduct: (product,callback)=>{

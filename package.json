@@ -9,6 +9,8 @@
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "cookie-parser": "~1.4.4",
+    "cropperjs": "^1.5.10",
+    "croppie": "^2.6.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-fileupload": "^1.2.1",

@@ -1,93 +1,97 @@
-<body>
+
+<form class="form-inline mt-1" id="coupon-check">
+  <div class="form-group mr-5" style="margin-left: 100px;">
+   <h6>Have a coupon?</h6>
+   
+  </div>
+  <div class="form-group mx-sm-3 mb-2">
+    <label for="inputPassword2" class="sr-only"></label>
+    <input type="text" class="form-control" id="inputPassword2" name="coupon" placeholder="enter the code">
+     
+  </div>
+  <h4 id="invalid-code" style="display: none;">Coupon Code invalid</h4>
+  <button type="submit" class="btn btn-primary mb-2">Apply code</button>
+</form>
 <!-- ::::::  Start  Main Container Section  ::::::  -->
+
+ 
 <main id="main-container" class="main-container">
     <div class="container">
         <div class="row">
             <!-- Start Client Shipping Address -->
-            <div class="col-lg-7">
+            <div class="col-lg-6">
                 <div class="section-content">
-                    <h5 class="section-content__title mt-5">Delivery Details</h5>
+                    <h5 class="section-content__title mt-3">Delivery Details</h5>
                 </div>
-                <form id="checkout" class="form-box" >
-                    <div class="row">
+                <form id="checkout"  class="form-box" >
+                    <div class="row"> 
                         <div class="col-md-6">
                             <div class="form-box__single-group">
                                 <label for="form-first-name">First Name</label>
-                                <input type="text" id="form-first-name" name="form-first-name" required>
+                                 <input type="text"  name="user" value="{{userName._id}}" hidden>
+                                <input type="text" id="first-name" name="form-first-name" readonly required>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                       
+                         <div class="col-md-6">
                             <div class="form-box__single-group">
                                 <label for="form-last-name">Last Name</label>
-                                <input type="text" id="form-last-name" name="form-last-name" required>
+                                <input type="text" id="lastName" name="form-last-name" readonly>
                             </div>
                         </div>
                        
                         <div class="col-md-12">
                             <div class="form-box__single-group">
                                 <label for="form-country">Country</label>
-                                <select id="form-country" name="form-country" required>
-                                    <option value="select-country" selected>Select a country</option>
-                                    <option id="form-country">India</option>
-                                    <option id="form-country">USA</option>
-                                    <option id="form-country">UK</option>
-                                    <option id="form-country">Turkey</option>
-                                    <option id="form-country">Canada</option>
-                                </select>
+                                 <input type="text" id="country" name="form-country" readonly>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-box__single-group">
                                 <label for="form-address-1">Street Address</label>
-                                <input type="text" id="form-address-1" name="form-address-1"
-                                    placeholder="House number and street name" required>
+                                <input type="text" id="address" name="form-address-1"
+                                    placeholder="House number and street name" readonly>
 
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-box__single-group">
                                 <label for="form-state">State</label>
-                                <select id="form-state" name="form-state" required>
-                                    <option id="form-state" >Kerala</option>
-                                    <option id="form-state">Tamil Nadu</option>
-                                    <option id="form-state">Assam</option>
-                                    <option id="form-state">goa</option>
-                                    <option id="form-state">Karnataka</option>
-                                </select>
+                                 <input type="text" id="state" name="form-state" readonly>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-box__single-group">
                                 <label for="form-zipcode">Postal Code</label>
-                                <input type="number" id="form-zipcode" name="form-zipcode" required>
+                                <input type="number" id="zipcode" name="form-zipcode" readonly>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-box__single-group">
                                 <label for="form-phone">Phone</label>
-                                <input type="number" id="form-phone" name="form-phone" required>
+                                <input type="number" id="phone" name="form-phone" readonly>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-box__single-group">
                                 <label for="form-email">Email Address</label>
-                                <input type="email" id="form-email" name="form-email" required>
-                                <input type="text" name="userId" id="" value="{{userName._id}}" hidden>
+                                <input type="email" id="email" name="form-email" readonly>
+                                
                             </div>
                         </div>
-
+            <input type="text" name="userId" id="" value="{{userName._id}}" hidden>     
 
                     </div>
 
             </div> <!-- End Client Shipping Address -->
 
             <!-- Start Order Wrapper -->
-            <div class="col-lg-5">
+            <div class="col-lg-6">
                 <div class="your-order-section">
                     <div class="section-content">
-                        <h5 class="section-content__title mt-5">Your order</h5>
+                        <h5 class="section-content__title mt-3">Your order</h5>
                     </div>
-                    <div class="your-order-box gray-bg m-t-40 m-b-30">
+                    <div class="your-order-box gray-bg m-t-10 m-b-30">
                         <div class="your-order-product-info">
                             {{!-- <div class="your-order-top d-flex justify-content-between">
                                 <h6 class="your-order-top-left">Product</h6>
@@ -108,45 +112,130 @@
                                 <h5 class="your-order-total-left">Total</h5>
                                 <h5 class="your-order-total-right">Rs.{{total}}</h5>
                             </div>
+                            
+                                    </div>
+                                    <div class="your-order-info order-total" id="discount-div" style="display: none;">
+                                            <ul>
+                                                <li>Discount <span id="discount-coupon-price"></span><span>-</span></li>
+                                            </ul>
+                                        </div>
+
+                                        <div id="discount" class="your-order-info order-total" style="display: none;">
+                                            <ul>
+                                               <h6><li>Total <span id="total-price-final">{{total}}</span> <span>Rs. </span></li></h6> 
+                                            </ul>
+                                        </div>
                                 <h4> <span style="color: red;">PAYMENT </span></h4>
                                
-                            <div class="payment-method">
+                            <div class="payment-method" id="payment">
                                <li>
                                     <label for="ship-standard">
                                         <input type="radio" class="shipping-select" name="payment-method" value="COD" id="payment-method" checked><span>CASH ON DELIVERY</span>
                                     </label>
                                     
                                 </li>
-                                <span style="color: red;">ONLINE PAYMENT</span>
+                                <br><span style="color:  red; font-size: 13px;">ONLINE PAYMENT</span><hr>
                                 <li>
                                     <label for="payment-method">
                                         <input type="radio" class="shipping-select" name="payment-method" value="ONLINE" id="payment-method"><span>RAZORPAY</span>
                                     </label>   
                                 </li>
                                   <li>
-                                    <label for="payment-method">
-                                        <input type="radio" class="shipping-select" name="payment-method" value="ONLINE" id="payment-method"><span>PAYPAL</span>
-                                    </label>   
+                                   
+                                         <label for="payment-method">
+                                        <input type="radio" class="shipping-select" name="payment-method" value="paypal" id="payment-method" ><span>PAYPAL</span>
+                                    </label> 
+                                    
+                                         
+                                     
                                 </li>
+                               
                             </div>
+                            <div name="paypal" id="paypal-button-container">  </div>
+                           
+                              <input type="submit" id="submit" class="btn btn--block btn--small btn--blue btn--uppercase btn--weight" value="place order" >   
+                         
                         </div>
                     </div>
-                    <input type="submit" class="btn btn--block btn--small btn--blue btn--uppercase btn--weight" value="place order">
+                   
                        
                 </div>
             </div> <!-- End Order Wrapper -->
             </form>
+            
+        <a href="/edit-address" class="btn btn-success " style="align-items: center; ">Add address</a>
+
         </div>
+       
+ 
     </div>
+    
 </main> <!-- ::::::  End  Main Container Section  ::::::  -->
+<section>
+    <div class="row">
+ {{#each address}}
+<div class="col-lg-3 text-center mt-5">
+    <div>
+        
+         <h6 class="text-center">address</h6>   
+             <p> {{this.firstName}}<br>
+               {{this.lastName}}<br>
+               {{this.address}}<br>
+              {{this.pincode}}<br>
+               {{this.mobile}}<hr>
+             </p>   
+            
+         <button onclick="changeAddress('{{this.firstName}}','{{this.lastName}}','{{this.country}}','{{this.state}}','{{this.mobile}}','{{this.address}}','{{this.pincode}}','{{this.email}}')" class="btn btn--box  btn--blue btn--uppercase ">add as delivery address</button>
+ 
+    </div>
+     <a class="box-btn m-t-25 " href="#"><i class="far fa-edit"></i> Edit Address</a>
+            </div>
+            {{/each}}
+
+    </div>
+</section>
+ 
+
   
 
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+ <script src="https://www.paypal.com/sdk/js?client-id=AV7Ecl6y4KOAOZf76k4YEWycEnjcwLCOQgzsp1ArbLICYvIwVvs3RzeNcGWyMjMXoEgh57jgRXp2wlL5&disable-funding=credit,card"></script>
+ 
 </body>
 <script>
+    
+      $('#coupon-check').submit((e)=>{
+            e.preventDefault()
+            $('#submit').hide()
+            $.ajax({
+                url:'/check-coupon',
+                method:'post',
+                data:$('#coupon-check').serialize(),
+                success:(response)=>{
+                    console.log(response)
+                    if(response.status==false){
+                        $('#invalid-code').show()
+                    }else{
+                        
+                        $('#discount').show() 
+                        $('#discount-div').show()
+                        console.log('respn',response.coupon.offer)
+                       
+                        document.getElementById('discount-coupon-price').innerHTML=response.coupon.offer
+                         let total=parseInt(document.getElementById('total-price-final').innerHTML)
+                        total=total-response.coupon.offer
+                        
+                        document.getElementById('total-price-final').innerHTML=total
+                    }
+                }
+            })
+        })
+
     $("#checkout").submit((e) => {
+       
         e.preventDefault();
+        console.log('im in')
         $.ajax({
             url: '/place-order',
             method:'post',
@@ -156,7 +245,39 @@
                 if(response.codSuccess){
                    
                     location.href='/order-success'
-               }else{
+               }else if(response.paypal){
+                console.log('respose',response.paypal)
+                    // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: response.total
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                    alert('Transaction completed by!');
+                   window.location.href=('/order-success')
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+       
+
+
+               }
+               else{
                    console.log(response,'ajamal')
                    razorpayPayment(response)
                } 
@@ -178,9 +299,9 @@
         verifyPayment(response,order)
     },
     "prefill": {
-        "name": "Gaurav Kumar",
-        "email": "gaurav.kumar@example.com",
-        "contact": "9999999999"
+        "name": "MORE",
+        "email": "more.@more.com",
+        "contact": "9995550001"
     },
     "notes": {
         "address": "Razorpay Corporate Office"
@@ -209,4 +330,19 @@ var rzp1 = new Razorpay(options);
             }
         })
     }
+    
+    function changeAddress(firstName,lastName,country,state,mobile,address,pincode,email){
+
+         $('#submit').show()
+        document.getElementById('first-name').value=firstName
+        document.getElementById('lastName').value=lastName
+        document.getElementById('country').value=country
+        document.getElementById('state').value=state
+        document.getElementById('phone').value=mobile
+        document.getElementById('address').value=address
+        document.getElementById('zipcode').value=pincode
+        document.getElementById('email').value=email
+    
+    }
 </script>
+

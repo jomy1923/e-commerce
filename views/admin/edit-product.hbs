@@ -23,12 +23,15 @@
                      <label for="">Edit Description</label>
                     <input type="text" name="Description" class="form-control" value="{{product.Description}}">
                      <label for="">Replace Image</label>
-                     <img src="/img/product-images/{{product._id}}.jpg" alt="" style="width:100px; height:auto;" id="imgView">
+                    
                     <input type="file" name="Image" class="form-control" onchange="viewImage(event)">
 
                     <button type="submit" class="btn btn-success mt-4">Submit</button>
                 </form>
             </div>
+              <div class="col-md-6">
+ <img src="/img/product-images/{{product._id}}.jpg" alt="" style="width:auto; height:auto;" id="imgView">
+</div>
         </div>
     </div>
 </section>

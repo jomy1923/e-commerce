@@ -4,6 +4,7 @@ var router = express.Router();
 const productHelpers=require('../helpers/product-helpers')
 var voucher_codes = require('voucher-code-generator');
 const userHelpers=require('../helpers/user-helpers')
+const orderHelpers=require('../helpers/order-helpers')
 
 const userController=require('../controller/user_controller')
 const verifyLogin=(req,res,next)=>{
@@ -22,7 +23,9 @@ router.get('/admin', function(req, res) {
   if (user){
     if(role===0){
       req.session.loggedIn=true
-     res.render('admin/home',{admin:true,userName:user,roles:role})
+      orderHelpers.getTotalOrderNum().then((orderNum) => {
+     res.render('admin/home',{admin:true,userName:user,roles:role,orderNum})
+    })
     }else{
       res.redirect('/login') 
   }
@@ -88,11 +91,19 @@ router.post('/add-product',(req,res)=>{
   })
   
 router.get('/admin/edit-product/:id',verifyLogin,async(req,res)=>{
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
 
   let product=await productHelpers.getProductDetails(req.params.id)
   let category=await productHelpers.showCategory(req.params.id)
  
   res.render('admin/edit-product',{product,category})
+}else{
+  res.redirect('/login') 
+}
+}
 })
 
 router.post('/edit-product/:id',(req,res)=>{

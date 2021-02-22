@@ -9,6 +9,7 @@ var instance = new Razorpay({
     key_secret: 'FoDsuhllphV79mF9PhJXTRDB',
   });
 const { response } = require('express')
+const { promises } = require('fs')
 module.exports={
     login:(userData)=>{
         return new  Promise(async(resolve,reject)=>{
@@ -511,6 +512,36 @@ module.exports={
                 resolve(true)
             })
         })
+    },
+    addAddress: (details) => {
+        console.log('address in user',details);
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.ADDRESS_COLLECTION).insertOne({
+                user: objectId(details.user),
+                firstName:details['form-first-name'],
+                lastName:details['form-last-name'],
+                country:details['form-country'],
+                state:details['form-state'],
+                mobile:details['form-phone'],
+                address:details['form-address-1'],
+                pincode:details['form-zipcode'],
+                email:details['form-email']
+            })
+            resolve()
+        })
+    },
+    getAllAddress:(userId)=>{
+        console.log('userId',userId);
+        return new Promise(async(resolve,reject)=>{
+            let address=await db.get().collection(collection.ADDRESS_COLLECTION).find({user:objectId(userId)}).toArray()
+            console.log('address in usercon',address);
+            if(address.length>0){
+                resolve(address)
+            }else{
+                reject()
+            }
+                
+            
+        })
     }
-   
 }

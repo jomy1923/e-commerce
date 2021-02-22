@@ -83,33 +83,89 @@
                  <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-info back-widget-set text-center">
                             <i class="fa fa-history fa-5x"></i>
-                            <h3>500+&nbsp; <i class="fa fa-dollar"></i></h3>
-                           Total amount
+                            <h3>{{orderNum.completedOrder}}</h3>
+                           <h4>TOTAL NUMBER OF COMPLETE ORDER</h4>
                         </div>
                     </div>
               <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-success back-widget-set text-center">
                             <i class="fa fa-bars fa-5x"></i>
-                            <h3>300+ Tasks</h3>
-                            Total Numbe of users
+                            <h3>{{orderNum.cancelOrder}}</h3>
+                            <H4>TOTAL NUMBER  OF CANCELLED ORDERS</H4>
                         </div>
                     </div>
                <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-warning back-widget-set text-center">
                             <i class="fa fa-recycle fa-5x"></i>
-                            <h3>56+ Calls</h3>
-                          Orders
+                            <h3> {{orderNum.totalOrders}}</h3>
+                          <h4>TOTAL NUMBER OF ORDERS</h4>
                         </div>
                     </div>
                <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-danger back-widget-set text-center">
                             <i class="fa fa-briefcase fa-5x"></i>
-                            <h3>30+ Issues </h3>
-                            That Should Be Resolved Now
+                            <h3>{{orderNum.readyToship}} </h3>
+                            <h4>WAITING FOR APPROVAL</h4>
                         </div>
                     </div>
 
-        </div>              
+        </div>   
+         <div class="row">
+            <div class="col-md-12">
+              <div class="bg-mattBlackLight p-3">
+                <div id="date" ></div>
+                <div id="total"></div>
+                <canvas id="myChart" width="400" height="400"></canvas>
+
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+    </div>     
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <script>
+var ctx = document.getElementById('myChart');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Total orders', 'Complete orders', 'Waiting for approval', 'Canceled Order'],
+        datasets: [{
+            label: '# sales',
+            data: [{{orderNum.totalOrders}}, {{orderNum.completedOrder}}, {{orderNum.readyToship}} , {{orderNum.cancelOrder}}],
+            backgroundColor: [
+                'rgba(52, 235, 225)',
+                'rgba(86, 235, 52)',
+                'rgba(52, 86, 235)',
+                'rgba(235, 52, 55)'
+                
+               
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)'
+                
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+
              {{!-- <div class="row">
 
               <div class="col-md-8 col-sm-8 col-xs-12">

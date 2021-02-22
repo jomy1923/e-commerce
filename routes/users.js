@@ -3,6 +3,7 @@ var express = require("express");
 var router = express.Router();
 const userController = require("../controller/user_controller");
 const productHelpers = require("../helpers/product-helpers");
+const userHelpers=require("../helpers/user-helpers")
 var axios = require("axios");
 var FormData = require("form-data");
 var otpid;
@@ -208,21 +209,41 @@ router.post("/delete-product", (req, res) => {
 router.get("/place-order", varifyLogin, async (req, res) => {
   let cartCount = await userController.getCartCount(req.session.name._id);
   let total = await userController.getTotalAmount(req.session.name._id);
-  res.render("user/place-order", {
-    total,
-    cartCount,
-    userName: req.session.name,
-  });
+   await userController.getAllAddress(req.session.name._id).then((address)=>{
+      console.log('address of ajmal:',address);
+      res.render("user/place-order", {
+        total,
+        cartCount,
+        address,
+        userName: req.session.name
+      });
+    }).catch(async()=>{
+      let cartCount = await userController.getCartCount(req.session.name._id);
+      let total = await userController.getTotalAmount(req.session.name._id);
+      res.render("user/place-order", {
+        total,
+        cartCount,
+        
+        userName: req.session.name
+      });
+    })
+ 
 });
 
 router.post("/place-order", async (req, res) => {
+  console.log('iam entered');
+  
   let products = await userController.getCartProductList(req.body.userId);
   let totalPrice = await userController.getTotalAmount(req.session.name._id);
   userController.placerOrder(req.body, products, totalPrice).then((orderId) => {
-    console.log(req.body, "jjjjj");
+    console.log("jjjjj",req.body );
     if (req.body["payment-method"] == "COD") {
       res.json({ codSuccess: true });
-    } else {
+    }else if(req.body["payment-method"] == "paypal"){
+    
+      res.json({paypal:true,total:parseInt(totalPrice/70)})
+    }
+     else {
       userController.generateRazorpay(orderId, totalPrice).then((response) => {
         res.json(response);
       });
@@ -294,7 +315,7 @@ router.post("/otp-login", (req, res) => {
         method: "post",
         url: "https://d7networks.com/api/verifier/send",
         headers: {
-          Authorization: "Token b3b6ad053db9909cf29b8946712eeb1388acec39",
+          Authorization: "Token 0826e09c83c02826d9767d57fed74ead46c7660a",
           ...data.getHeaders(),
         },
         data: data,
@@ -324,7 +345,7 @@ router.post("/otp-login-verify", (req, res) => {
     method: "post",
     url: "https://d7networks.com/api/verifier/verify",
     headers: {
-      Authorization: "Token b3b6ad053db9909cf29b8946712eeb1388acec39",
+      Authorization: "Token 0826e09c83c02826d9767d57fed74ead46c7660a",
       ...data.getHeaders(),
     },
     data: data,
@@ -352,7 +373,7 @@ router.post("/resend-otp", (req, res) => {
     method: "post",
     url: "https://d7networks.com/api/verifier/resend",
     headers: {
-      Authorization: "Token b3b6ad053db9909cf29b8946712eeb1388acec39",
+      Authorization: "Token 0826e09c83c02826d9767d57fed74ead46c7660a",
       ...data.getHeaders(),
     },
     data: data,
@@ -384,5 +405,35 @@ router.get('/product-view/:id',varifyLogin,(req, res) => {
   })
 
 })
+router.post('/check-coupon',varifyLogin,(req,res)=>{
+  console.log('coupon code',req.body);
+  userHelpers.couponCheck(req.body).then((coupon)=>{
+    console.log('valid');
+   
+    res.json({coupon})
+  }).catch(()=>{
+    console.log('Not valid');
+    
+    res.json({status:false})
+  })
 
+})
+router.get('/my-account',varifyLogin,(req,res)=>{
+  res.render('user/my-account',{userName: req.session.name})
+})
+
+router.get('/edit-address',varifyLogin,(req,res)=>{
+  res.render('user/add-adress',{userName: req.session.name})
+})
+router.post('/add-address',varifyLogin,(req,res)=>{
+  console.log('im entered in a wrong place');
+  
+  console.log('address',req.body);
+  userController.addAddress(req.body).then(()=>{
+  
+  console.log('address aded success');
+  res.json({status:true})
+  })
+})
 module.exports = router;
+
