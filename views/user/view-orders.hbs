@@ -30,10 +30,25 @@
       <td>{{this.deliveryDetails.address}}</td>
       <td>{{this.getTotalAmount}}</td>
       <td>{{this.paymentMethod}}</td>
-      <td>{{this.status}}</td>
+     
+      {{!-- {{#if this.ship}}
+      <td>{{this.ship}}</td>
+      {{else}}
+       <td>{{this.status}}</td>
+       {{/if}} --}}
+ {{#if (eqw this.ship 'Not Dispatched')}}
+      <td class="pt-5" style="color: rgb(235, 21, 14);">{{this.ship}}</td>
+      {{else}}
+      {{#if (eqw this.ship 'Order Cancelled')}}
+       <td class="pt-5" style="color: rgb(235, 21, 14);">{{this.ship}}</td>
+    {{else}}
+       <td  class="pt-5" style="color: rgb(14, 235, 62);">{{this.ship}}</td>
+      {{/if}}
+      {{/if}}
      
       <td>
         <a href="/view-order-products/{{this._id}}" class="btn btn-primary ">view products</a>
+        <a href="/view-order-products/{{this._id}}" class="btn btn-danger" >cancel the order</a>
       </td>
     </tr>
     {{/each}}

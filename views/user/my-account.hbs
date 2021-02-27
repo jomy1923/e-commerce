@@ -22,7 +22,7 @@
                                         
                                        
                                         <li>
-                                            <a id="pills-address-tab" class="link--icon-left" data-toggle="pill" href="#pills-address" role="tab"
+                                            <a id="pills-address-tab" class="link--icon-left" data-toggle="pill" href="/my-address/{{userName._id}}" role="tab"
                                                 aria-controls="pills-address" aria-selected="false"><i
                                                     class="fas fa-map-marker-alt"></i> Address</a>
                                         </li>
@@ -32,7 +32,7 @@
                                                 Account Details</a>
                                         </li>
                                         <li>
-                                            <a class="link--icon-left" href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                                            <a class="link--icon-left" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -44,8 +44,8 @@
                                         <div class="my-account-dashboard account-wrapper">
                                             <h4 class="account-title">Dashboard</h4>
                                             <div class="welcome-dashboard m-t-30">
-                                                <p>Hello, <strong>Alex Tuntuni</strong> (If Not <strong>Tuntuni !</strong> <a
-                                                        href="#">Logout</a> )</p>
+                                                <p>Hello, <strong>{{userName.uname}}</strong> (If Not <strong>{{userName.uname}} !</strong> <a
+                                                        href="/logout">Logout</a> )</p>
                                             </div>
                                             <p class="m-t-25">From your account dashboard. you can easily check &amp; view your
                                                 recent orders, manage your shipping and billing addresses and edit your password and

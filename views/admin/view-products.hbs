@@ -1,8 +1,8 @@
 <!--Table-->
  
-
-
-<table class="table table-striped w-100%" id="productsTable " >
+<div class="row">
+  <div class="col-md-10 p-5 ml-5">
+    <table class="table table-striped w-100% " id="productsTable ">
 
   <!--Table head-->
   <thead>
@@ -35,7 +35,7 @@
         <a href="/admin/delete-product/{{this._id}}" class="btn btn-danger mt-3" onclick="return confirm('do you need to delete the {{this.Name}}? ')">Delete</a>
         
       </td>
-      <td><img style="width: 70px; height:70px;" src="/img/product-images/{{this._id}}.jpg" alt=""></td>
+      <td><img style="width: 70px; height:70px;" src="/img/product-images/{{this._id}}1.jpg" alt=""></td>
     </tr>
      
    {{/each}}
@@ -46,6 +46,10 @@
 
 </table>
 <!--Table-->
+
+  </div>
+</div>
+
 
 
 

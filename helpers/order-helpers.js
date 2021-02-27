@@ -25,5 +25,31 @@ module.exports = {
             }
 
         })
-    }
+    },
+    updateReport:(date)=>{
+        console.log('date report',date);
+        let startDate=moment(date.startDate).format('L')
+        let endDate=moment(date.endDate).format('L')
+        return new Promise(async(resolve,reject)=>{
+        let report=await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+            {
+                $match:{date: {$gte: startDate, $lt: endDate}}
+            },
+            {
+                $project:{
+                    deliveryDetails:1,
+                    paymentMethod:1,
+                    products:1,
+                    getTotalAmount:1,
+                    status:1,
+                    date:1,
+                    ship:1
+                }
+            }
+        ]).toArray()
+        console.log('report',report)
+        resolve(report)
+    })
+    
+}
 }

@@ -1,0 +1,89 @@
+<main>
+
+    <div class="container-fluid">
+        <div>
+            <div class="bg-mattBlackLight my-2 p-3">
+                <h2 style="color: rgb(8, 134, 245);" class="text-center">REPORT</h2>
+            </div>
+        </div>
+       <div class="d-flex justify-content-center">
+            <form action="/update-report" method="POST"  >
+            <div class="form-group" style="max-width: 500px; display:inline-block ">
+                <label for="exampleInputPassword1">Start Date</label>
+                <input type="date" class="form-control" id="exampleInputPassword1" placeholder="New offer" required
+                    name="startDate" value="">
+            </div>
+            <div class="form-group" style="max-width: 500px; display:inline-block">
+                <label for="exampleInputPassword1">End Date</label>
+                <input type="date" class="form-control" id="exampleInputPassword1" placeholder="New offer" required
+                    name="endDate" value="">
+            </div>
+            <div style="max-width: 500px; display:inline-block">
+                <input type="submit" class="btn btn-success"   value="Get Report">
+            </div>
+        </form>
+       </div>
+    </div>
+    <section class=" p-5">
+<!--Table-->
+<table>
+
+  <!--Table head-->
+  <thead>
+    <tr class="table-warning">
+      <th>Date</th>
+      <th>Pincode</th>
+      <th>Mobile</th>
+      <th>Address</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Payment</th>
+      <th>status</th>
+      
+
+    </tr>
+  </thead>
+  <!--Table head-->
+
+  <!--Table body-->
+  <tbody>
+
+  {{#each report}}
+    <tr class="table">
+
+      <td>{{this.date}}</td>
+       <td>{{this.deliveryDetails.pincode}}</td>
+      <td>{{this.deliveryDetails.mobile}}</td>
+      <td>{{this.deliveryDetails.address}}</td>
+      <td>{{this.getTotalAmount}}</td>
+      <td>{{this.paymentMethod}}</td>
+     
+      {{!-- {{#if this.ship}}
+      <td>{{this.ship}}</td>
+      {{else}}
+       <td>{{this.status}}</td>
+       {{/if}} --}}
+ {{#if (eqw this.ship 'Not Dispatched')}}
+      <td class="pt-5" style="color: rgb(235, 21, 14);">{{this.ship}}</td>
+      {{else}}
+      {{#if (eqw this.ship 'Order Cancelled')}}
+       <td class="pt-5" style="color: rgb(235, 21, 14);">{{this.ship}}</td>
+    {{else}}
+       <td  class="pt-5" style="color: rgb(14, 235, 62);">{{this.ship}}</td>
+      {{/if}}
+      {{/if}}
+     
+     
+    </tr>
+    {{/each}}
+
+   
+
+  </tbody>
+  <!--Table body-->
+
+
+</table>
+<!--Table-->
+</section>
+
+</main>

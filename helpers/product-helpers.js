@@ -11,8 +11,10 @@ module.exports={
         product.Price=parseInt(product.Price)
         product.Quantity=parseInt( product.Quantity)
         db.get().collection('products').insertOne(product).then((data)=>{
+            console.log('image multiple inn product helpers',data.ops[0]._id)
             callback(data.ops[0]._id)
         })
+    
     },
     getAllproducts:()=>{
         

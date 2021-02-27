@@ -4,31 +4,46 @@
                     <div class="product-details">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="product-gallery-box m-b-60">
-                                    <div class="product-image--large overflow-hidden">
-                                        <img class="img-fluid" id="img-zoom" src="/img/product-images/{{product._id}}.jpg" data-zoom-image="/img/product/gallery/gallery-large/product-gallery-large-1.jpg" alt="">
+                                <div class="product-gallery-box m-b-60 mt-5">
+                                    <div  id="img-container"  >
+                                        <img class="img-fluid"  src="/img/product-images/{{product._id}}1.jpg" data-zoom-image="/img/product-images/{{product._id}}.jpg" alt="">
                                     </div>
                                     <div class="pos-relative m-t-30">
                                         <div id="gallery-zoom" class="product-image--thumb product-image--thumb-horizontal overflow-hidden swiper-outside-arrow-hover m-lr-30">
-                                            <div class="swiper-wrapper">
+                                            {{!-- <div class="swiper-wrapper">
                                                 <div class="swiper-slide">
-                                                    <a class="zoom-active" data-image="/img/product/gallery/gallery-large/product-gallery-large-1.jpg" data-zoom-image="/img/product/gallery/gallery-large/product-gallery-large-1.jpg">
-                                                        <img class="img-fluid" src="/img/product/gallery/gallery-thumb/product-gallery-thumb-1.jpg" alt="">
+                                                    <a class="zoom-active" data-image="/img/product-images/{{product._id}}.jpg" data-zoom-image="/img/product-images/{{product._id}}.jpg">
+                                                        <img class="img-fluid" src="/img/product-images/{{product._id}}2.jpg" alt="">
                                                     </a>
                                                 </div>
                                                 <div class="swiper-slide">
-                                                    <a data-image="/img/product/gallery/gallery-large/product-gallery-large-2.jpg" data-zoom-image="/img/product/gallery/gallery-large/product-gallery-large-2.jpg">
-                                                        <img class="img-fluid" src="/img/product/gallery/gallery-thumb/product-gallery-thumb-2.jpg" alt="">
+                                                    <a data-image="/img/product-images/{{product._id}}.jpg" data-zoom-image="/img/product-images/{{product._id}}.jpg">
+                                                        <img class="img-fluid" src="/img/product-images/{{product._id}}2.jpg" alt="">
                                                     </a>
                                                 </div>
                                                 <div class="swiper-slide">
-                                                    <a data-image="/img/product/gallery/gallery-large/product-gallery-large-3.jpg" data-zoom-image="/img/product/gallery/gallery-large/product-gallery-large-3.jpg">
-                                                        <img class="img-fluid" src="/img/product/gallery/gallery-thumb/product-gallery-thumb-3.jpg" alt="">
+                                                    <a data-image="/img/product-images/{{product._id}}.jpg" data-zoom-image="/img/product-images/{{product._id}}.jpg">
+                                                        <img class="img-fluid" src="/img/product-images/{{product._id}}.jpg" alt="">
                                                     </a>
                                                 </div>
                                                 
                                                
+                                            </div> --}}
+                                            <div class="row" >
+                                                                                <div class="col-md-2">
+<img src="/img/product-images/{{product._id}}1.jpg" alt="" style="width:100px; height:100px;" id="imgView1">
+
+</div>
+ <div class="col-md-2">
+<img src="/img/product-images/{{product._id}}2.jpg" alt="" style="width:100px; height:100px;" id="imgView2">
+
+</div>
+ <div class="col-md-2">
+<img src="/img/product-images/{{product._id}}3.jpg" alt="" style="width:100px; height:100px;" id="imgView3">
+
+</div>
                                             </div>
+             
                                         </div>
                                         
                                     </div>
@@ -69,3 +84,13 @@
                         </div>
                     </div> 
                 </div><!-- End Product Details Gallery -->
+                <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js" type="application/javascript"></script>
+                <script>
+var options = {
+    width: 400,
+    zoomWidth: 200,
+    offset: {vertical: 10, horizontal: 10}
+};
+new ImageZoom(document.getElementById("img-container"), options);
+
+</script>

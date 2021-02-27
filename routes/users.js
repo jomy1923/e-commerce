@@ -8,7 +8,8 @@ var axios = require("axios");
 var FormData = require("form-data");
 var otpid;
 const varifyLogin = (req, res, next) => {
-  if (req.session.loggedIn) {
+  let ifSession = req.session.name;
+  if (ifSession) {
     next();
   } else {
     res.redirect("/login");
@@ -419,6 +420,7 @@ router.post('/check-coupon',varifyLogin,(req,res)=>{
 
 })
 router.get('/my-account',varifyLogin,(req,res)=>{
+  console.log('userName: req.session.name', req.session.name);
   res.render('user/my-account',{userName: req.session.name})
 })
 
@@ -433,6 +435,27 @@ router.post('/add-address',varifyLogin,(req,res)=>{
   
   console.log('address aded success');
   res.json({status:true})
+  })
+})
+router.get('/my-address/:id',varifyLogin,(req,res)=>{
+let id=req.params.id
+let userName=req.session.name._id
+console.log('session ummerrr vakka',userName);
+  console.log('id in my account',req.params.id);
+  userController.getMyAddress(id).then((myAddress)=>{
+    console.log('myAddress',myAddress);
+    
+    res.render('user/my-address',{myAddress,userName})
+  }).catch(()=>{
+    res.redirect('/edit-address')
+  })
+  
+})
+router.post('/edit-address',(req,res)=>{
+  console.log('my address',req.body);
+  userController.editAddress(req.body).then(()=>{
+    console.log('addres edited success');
+    res.json({status:true})
   })
 })
 module.exports = router;

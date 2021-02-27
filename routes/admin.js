@@ -61,21 +61,40 @@ productHelpers.showCategory().then((category)=>{
   
 })
 
-router.post('/add-product',(req,res)=>{
+router.post('/add-product',(req,res,next)=>{
   let user=req.session.name
   let role=req.session.role
   if (user){
     if(role===0){
   productHelpers.addProduct(req.body,(id)=>{
-    let image=req.files.Image
+    console.log('image',req.body)
+    let image1=req.files.Image[0]
+    let image2=req.files.Image[1]
+    let image3=req.files.Image[2]
     
-   image.mv('./public/img/product-images/'+id+'.jpg',(err)=>{
+    
+   image1.mv('./public/img/product-images/'+id+'1'+'.jpg',(err)=>{
      if(!err){
       res.redirect('/add-product')
      }else{
+      
        console.log(err)
      }
    })
+   image2.mv('./public/img/product-images/'+id+'2'+'.jpg',(err)=>{
+    if(!err){
+     res.redirect('/add-product')
+    }else{
+      console.log(err)
+    }
+  })
+  image3.mv('./public/img/product-images/'+id+'3'+'.jpg',(err)=>{
+    if(!err){
+     res.redirect('/add-product')
+    }else{
+      console.log(err)
+    }
+  })
    
   }) }else{
     res.redirect('/login') 
@@ -331,42 +350,90 @@ router.get('/delete-category/:id', (req, res) => {
 
 })
 router.get('/get-all-orders', (req, res) => {
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
   userHelpers.getAllOrders().then((allOrders) => {
 
 console.log(allOrders);
     res.render('admin/viewOrder-details', { admin: true, allOrders })
   })
+} else {
+  res.redirect('/')
+}
+}
 })
 router.get('/ship-order/:id', (req, res) => {
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
   userHelpers.shipOrder(req.params.id).then(() => {
     res.redirect('/get-all-orders')
   })
+} else {
+  res.redirect('/')
+}
+}
 })
 router.get('/cancel-order/:id', (req, res) => {
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
   userHelpers.cancelOrder(req.params.id).then(() => {
     res.redirect('/get-all-orders')
   })
+} else {
+  res.redirect('/')
+}
+}
 })
 router.get('/offers', (req, res) => {
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
   productHelpers.getAllproducts().then((products) => {
 
 
 
     res.render('admin/pro-offers', { admin: true, products })
   })
+} else {
+  res.redirect('/')
+}
+}
 })
 router.get('/category-offer',(req,res)=>{
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
   productHelpers.showCategory().then((categories)=>{
     console.log('categories',categories);
     res.render('admin/offers-to-category',{admin:true,categories})
   })
+} else {
+  res.redirect('/')
+}
+}
   
 })
 router.get('/add-offer/:id', (req, res) => {
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
   productHelpers.viewOneProduct(req.params.id).then((singleProduct)=>{
     console.log('singleProduct',singleProduct);
-    res.render('admin/add-offer-item',{singleProduct})
+    res.render('admin/add-offer-item',{admin:true,singleProduct})
   })
+} else {
+  res.redirect('/')
+}
+}
 })
 router.post('/update-offer/:id',(req,res)=>{
   proId=req.params.id
@@ -374,19 +441,36 @@ router.post('/update-offer/:id',(req,res)=>{
   productHelpers.updateOffer(proId,req.body).then(()=>{
     res.redirect('/offers')
   })
+
 })
 router.get('/delete-offer/:id',(req,res)=>{
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
   proId=req.params.id
   productHelpers.removeOffer(proId).then(()=>{
     res.redirect('/offers')
   })
+} else {
+  res.redirect('/')
+}
+}
 })
 router.get('/add-category-offer/:id',(req,res)=>{
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
   productHelpers.showOneCategory(req.params.id).then((singleCategory)=>{
     console.log('category single',singleCategory);
-    res.render('admin/offer-to-category-update',{singleCategory})
+    res.render('admin/offer-to-category-update',{singleCategory,admin:true})
     
   })
+} else {
+  res.redirect('/')
+}
+}
 })
 
 router.post('/add-category-offer/:id',(req,res)=>{
@@ -397,20 +481,43 @@ router.post('/add-category-offer/:id',(req,res)=>{
   })
 })
 router.get('/delete-category-offer/:id',(req,res)=>{
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
   console.log('id here',req.params.id)
   productHelpers.removeCategoryOffer(req.params.id).then(()=>{
     res.redirect('/category-offer')
   })
+} else {
+  res.redirect('/')
+}
+}
 })
 router.get('/coupon',(req,res)=>{
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
   userHelpers.getAllCoupons().then((coupons)=>{
     console.log('all coupons',coupons);
     res.render('admin/coupon',{admin:true,coupons})
   })
-  
+} else {
+  res.redirect('/')
+}
+}
 })
 router.get('/generate-code-form',(req,res)=>{
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
   res.render('admin/coupon-form',{admin:true})
+} else {
+  res.redirect('/')
+}
+}
 })
 router.post('/generate-code',(req,res)=>{
   console.log('hi generate');
@@ -425,11 +532,36 @@ router.post('/generate-code',(req,res)=>{
   })
 })
 router.get('/delete-coupon/:id',(req,res)=>{
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
   proId=req.params.id
 
   userHelpers.deleteCoupon(proId).then(()=>{
     res.redirect('/coupon')
   })
-  
+} else {
+  res.redirect('/')
+}
+}
 })
+router.get('/report',(req,res)=>{
+  let user=req.session.name
+  let role=req.session.role
+  if (user){
+    if(role===0){
+  res.render('admin/report',{admin:true})
+} else {
+  res.redirect('/')
+}
+}
+})
+router.post('/update-report',(req,res)=>{
+  console.log('date in report',req.body);
+  orderHelpers.updateReport(req.body).then((report)=>{
+    res.render('admin/report',{report,admin:true})
+  })
+})
+
 module.exports = router;

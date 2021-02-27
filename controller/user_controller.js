@@ -10,6 +10,7 @@ var instance = new Razorpay({
   });
 const { response } = require('express')
 const { promises } = require('fs')
+const { resolve } = require('path')
 module.exports={
     login:(userData)=>{
         return new  Promise(async(resolve,reject)=>{
@@ -337,6 +338,7 @@ module.exports={
         })
     },
     getOrderProducts:(orderId)=>{
+        console.log('orderId in get view order',orderId);
         
         return new Promise(async(resolve,reject)=>{
                 let orderItems=await db.get().collection(collection.ORDER_COLLECTION).aggregate([
@@ -371,6 +373,7 @@ module.exports={
               
                 
                 resolve( orderItems)
+                console.log('ordred products',orderItems);
                
             
         })
@@ -542,6 +545,42 @@ module.exports={
             }
                 
             
+        })
+    },
+    getMyAddress:(id)=>{
+        console.log('id in user controller',id);
+        return new Promise(async(resolve,reject)=>{
+            let myAddress= await db.get().collection(collection.ADDRESS_COLLECTION).find({user:objectId(id)}).toArray()
+     console.log('my address',myAddress);
+     if(myAddress.length>0)
+     {
+        resolve(myAddress)
+     }else{
+         reject()
+     }
+     
+        })
+     
+    },
+    editAddress:(details)=>{
+        console.log('to be edited',details);
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.ADDRESS_COLLECTION).updateOne({user:objectId(details.user)},
+            {
+                $set:{
+                    user: objectId(details.user),
+                    firstName:details['form-first-name'],
+                    lastName:details['form-last-name'],
+                    country:details['form-country'],
+                    state:details['form-state'],
+                    mobile:details['form-phone'],
+                    address:details['form-address-1'],
+                    pincode:details['form-zipcode'],
+                    email:details['form-email']
+                }
+            })
+            console.log('address');
+           resolve()
         })
     }
 }

@@ -22,14 +22,26 @@
                     <input type="text" name="Description" class="form-control">
                      <label for="" >Image</label>
                      
-                    <input type="file" class="form-control" name="Image"  onchange="viewImage(event)" >
+                    <input type="file" class="form-control" name="Image" accept="image/*" onchange="viewImage(event)" multiple >
                      
                     <button type="submit" class="btn btn-success mt-4">Submit</button>
                    
                 </form>
             </div>
-            <div class="col-md-6">
-<img src="" alt="" style="width:auto; height:auto;" id="imgView">
+            <div>
+
+            </div>
+            <div class="col-md-2">
+<img src="" alt="" style="width:200px; height:300px;" id="imgView1">
+
+</div>
+ <div class="col-md-2">
+<img src="" alt="" style="width:200px; height:300px;" id="imgView2">
+
+</div>
+ <div class="col-md-2">
+<img src="" alt="" style="width:200px; height:300px;" id="imgView3">
+
 </div>
         </div>
     </div>
@@ -37,8 +49,12 @@
 </section>
 
 <script>
+
     function viewImage(event){
-        document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
+        document.getElementById('imgView1').src=URL.createObjectURL(event.target.files[0])
+        document.getElementById('imgView2').src=URL.createObjectURL(event.target.files[1])
+        document.getElementById('imgView3').src=URL.createObjectURL(event.target.files[2])
+        
     }
 
 </script>
