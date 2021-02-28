@@ -6,7 +6,7 @@ var logger = require('morgan');
 const db = require('./config/connection')
 var session=require('express-session')
 var fileUpload=require('express-fileupload')
-
+var dotenv=require('dotenv').config()
 const Handlebars = require('handlebars');
 const H = require('just-handlebars-helpers');
 var adminRouter = require('./routes/admin');
@@ -55,6 +55,9 @@ db.connect((err)=>{
 
 app.use('/', adminRouter);
 app.use('/', usersRouter);
+app.use((req,res)=>{
+  res.status(404).render('user/404')
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
