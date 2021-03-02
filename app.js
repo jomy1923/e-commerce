@@ -56,7 +56,7 @@ db.connect((err)=>{
 app.use('/', adminRouter);
 app.use('/', usersRouter);
 app.use((req,res)=>{
-  res.status(404).render('user/404')
+  res.status(404).render('../errors/404')
 })
 
 // catch 404 and forward to error handler
