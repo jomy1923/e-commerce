@@ -12,7 +12,7 @@ const varifyLogin = (req, res, next) => {
   if (ifSession) {
     next();
   } else {
-    res.redirect("/login");
+    res.redirect("/home");
   }
 };
 /* GET users listing. */
@@ -35,9 +35,14 @@ router.get("/", async function (req, res) {
       });
     }
   } else {
-    res.redirect("login");
+    res.redirect("home");
   }
 });
+router.get('/home',(req,res)=>{
+  let product= productHelpers.getAllproducts().then((product)=>{
+    res.render("user/home",{product})
+  })
+})
 router.post("/register", (req, res) => {
   let role = req.session.role;
   let ifSession = req.session.name;
@@ -132,7 +137,7 @@ router.get("/register", (req, res) => {
 });
 router.get("/logout", (req, res) => {
   req.session.destroy();
-  res.redirect("/login");
+  res.redirect("/home");
 });
 router.get("/cart", varifyLogin, async (req, res) => {
   userController
